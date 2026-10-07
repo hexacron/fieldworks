@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fieldguide · OSINT Ecosystem Overview</title>
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1>Fieldguide</h1>
+    <p>OSINT ecosystem overview · sources · providers · techniques · tools · governance · trends</p>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-view="map" class="on">Ecosystem map</button>
+    <button data-view="catalog">Catalog</button>
+    <button data-view="workflow">Workflow</button>
+    <button data-view="matrix">Source × technique</button>
+  </nav>
+  <div class="search"><input id="q" type="search" placeholder="Search entities, e.g. AIS, breach, Telegram, sanctions…" autocomplete="off"><kbd>/</kbd></div>
+  <div class="stat" id="stat"></div>
+</header>
+
+<aside>
+  <h2>Layers</h2>
+  <div id="layers"></div>
+  <h2>Access model</h2>
+  <div class="chips" id="models"></div>
+  <div class="side-actions"><button class="btn" id="reset">Reset filters</button></div>
+  <details class="about" open>
+    <summary>How to read this</summary>
+    <ul>
+      <li><b>Data sources</b> are where open information originates; <b>providers</b> aggregate or sell access to them.</li>
+      <li><b>Techniques</b> are methods; <b>tools</b> implement them.</li>
+      <li>Disciplines, use cases, governance, community and trends frame how the field operates.</li>
+      <li>Click any node or card to see its connections and pivot through the ecosystem.</li>
+      <li>Collection-engineering techniques (scraping, hidden APIs, app reversing) carry <b>practitioner notes</b> in their detail panel; search covers them too.</li>
+    </ul>
+  </details>
+  <details class="about">
+    <summary>Caveats</summary>
+    <p>Snapshot compiled in 2026 from general domain knowledge. The vendor landscape changes fast (acquisitions, rebrands, API policy). Inclusion is not endorsement. Access to people-data, breach data and scraping is jurisdiction-dependent, and reverse engineering, pinning bypass and private-API use carry contractual and anti-circumvention risk: confirm legal basis and platform terms before use.</p>
+  </details>
+</aside>
+
+<main>
+  <section class="view on" id="v-map">
+    <svg id="graph"></svg>
+    <div class="mapctl">
+      <button id="zin" title="Zoom in">+</button>
+      <button id="zout" title="Zoom out">−</button>
+      <button id="zfit" title="Fit">⤢</button>
+    </div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <section class="view" id="v-catalog"><div id="catalog" style="position:absolute;inset:0"></div></section>
+  <section class="view" id="v-workflow"><div id="workflow" style="position:absolute;inset:0"></div></section>
+  <section class="view" id="v-matrix"><div id="matrix" style="position:absolute;inset:0"></div></section>
+  <div id="drawer"></div>
+</main>
+<div id="tip"></div>
+
+<script src="src/data.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>

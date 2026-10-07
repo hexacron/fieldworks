@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quarry · How data providers acquire data</title>
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1>Quarry</h1>
+    <p>How data providers acquire data · methods · recipes · pipeline · economics · law</p>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-view="flow" class="on">Supply chain</button>
+    <button data-view="recipes">Recipes</button>
+    <button data-view="playbooks">Playbooks</button>
+    <button data-view="pipeline">Pipeline</button>
+    <button data-view="economics">Economics</button>
+    <button data-view="law">Law &amp; precedent</button>
+  </nav>
+  <div class="search"><input id="q" type="search" placeholder="Search methods, vendors, tools, steps…" autocomplete="off"><kbd>/</kbd></div>
+  <div class="stat" id="stat"></div>
+</header>
+
+<aside>
+  <h2>Method families</h2>
+  <div id="families"></div>
+  <h2>Legal exposure</h2>
+  <div class="chips" id="legal"></div>
+  <div class="side-actions"><button class="btn" id="reset">Reset filters</button></div>
+  <details class="about" open>
+    <summary>How to read this</summary>
+    <ul>
+      <li><b>Origins</b> are where data physically arises; <b>methods</b> are how providers acquire it; <b>recipes</b> show which methods build each kind of provider; the <b>pipeline</b> turns raw collection into <b>products</b>.</li>
+      <li>Every method opens a <b>playbook</b>: operating steps, tools, economics, pitfalls, source defenses, law and named vendors.</li>
+      <li>Ratings are editorial, 1–3: cost, scale, freshness, defensibility, legal exposure.</li>
+      <li>Vendor evidence: <span class="badge ev-public">public</span> documented by the vendor, <span class="badge ev-reported">reported</span> press/courts/regulators, <span class="badge ev-inferred">inferred</span> industry-typical, unconfirmed.</li>
+    </ul>
+  </details>
+  <details class="about">
+    <summary>Scope &amp; caveats</summary>
+    <p>Compiled in 2026 from general domain knowledge; vendor practices, prices and case law change quickly. Inclusion is not endorsement, and nothing here is legal advice.</p>
+    <p>Underground entries document monitoring, verification and processing, and how covert-collection and purchasing decisions are governed. They do not cover buying from criminal sellers, obtaining logs from criminal channels, or passing vetting in criminal communities.</p>
+  </details>
+</aside>
+
+<main>
+  <section class="view on" id="v-flow">
+    <div class="toolbar">
+      <span>Middle column:</span>
+      <div class="seg" id="flowmode"><button data-mode="families">Families</button><button data-mode="methods" class="on">Methods</button></div>
+      <span class="hint">Hover to trace a supply chain end to end · click for details</span>
+    </div>
+    <div id="flow" class="scroll"></div>
+  </section>
+  <section class="view" id="v-recipes"><div id="recipes" class="scroll pad"></div></section>
+  <section class="view" id="v-playbooks"><div id="playbooks" class="scroll pad"></div></section>
+  <section class="view" id="v-pipeline"><div id="pipeline" class="scroll pad"></div></section>
+  <section class="view" id="v-economics">
+    <div class="toolbar">
+      <span>X axis</span><select id="ex"></select>
+      <span>Y axis</span><select id="ey"></select>
+      <span class="hint">Chip colour = family · badge = legal exposure</span>
+    </div>
+    <div id="economics" class="scroll pad"></div>
+  </section>
+  <section class="view" id="v-law"><div id="law" class="scroll pad"></div></section>
+  <div id="drawer"></div>
+</main>
+<div id="tip"></div>
+
+<script src="src/data/core.js"></script>
+<script src="src/data/web-records.js"></script>
+<script src="src/data/network.js"></script>
+<script src="src/data/sensors-crowd.js"></script>
+<script src="src/data/embedded-commercial.js"></script>
+<script src="src/data/human-rules.js"></script>
+<script src="src/data/underground.js"></script>
+<script src="src/data/ai.js"></script>
+<script src="src/data/chain.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>
