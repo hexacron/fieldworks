@@ -2,7 +2,10 @@
 
 Repository-level changes: site, tooling and maintenance. Content changes are logged per project in [`fieldguide/CHANGELOG.md`](fieldguide/CHANGELOG.md) and [`quarry/CHANGELOG.md`](quarry/CHANGELOG.md). Releases use calendar versions, `vYYYY.MM.N`.
 
-## Unreleased
+## v2026.10.1 — 2026-10-07
+
+First public release.
+
 
 - `upkeep/claims.json`: all 59 claims verified against primary sources (16 corrected, catalogue text updated); every cited URL checked to resolve. Details in the project changelogs.
 - `upkeep/links.json`: Shodan and NASA Earthdata acknowledged (they block GitHub runner IPs).
