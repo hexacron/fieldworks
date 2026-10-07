@@ -1,5 +1,5 @@
 {
   "about": "Acknowledged link-check findings, so the weekly report only shows new problems. Add an entity id here once you have handled the finding (e.g. the entry now says the repo is archived, or you opened a bot-blocked site by hand and it works). See MAINTAINING.md.",
   "archived_ok": ["t_telethon"],
-  "blocked_ok": ["p_strails", "p_tineye", "p_dataminr", "p_dehashed", "p_epieos", "p_edgar", "p_fr24", "p_etherscan", "c_tracelabs", "c_gijn"]
+  "blocked_ok": ["p_strails", "p_tineye", "p_dataminr", "p_dehashed", "p_epieos", "p_edgar", "p_fr24", "p_etherscan", "c_tracelabs", "c_gijn", "p_shodan", "p_nasa"]
 }
