@@ -6,7 +6,6 @@ Repository-level changes: site, tooling and maintenance. Content changes are log
 
 First public release.
 
-
 - `upkeep/claims.json`: all 59 claims verified against primary sources (16 corrected, catalogue text updated); every cited URL checked to resolve. Details in the project changelogs.
 - `upkeep/links.json`: Shodan and NASA Earthdata acknowledged (they block GitHub runner IPs).
 
