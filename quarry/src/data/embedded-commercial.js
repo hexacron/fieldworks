@@ -47,11 +47,11 @@ M({
   ],
   rules: ["g_ftc", "g_usprivacy", "g_gdpr"],
   vendors: [
-    {name:"Kochava", note:"FTC sued (2022) alleging sale of precise geolocation data traceable to sensitive sites such as reproductive-health clinics and places of worship.", evidence:"reported"},
+    {name:"Kochava", note:"FTC sued Kochava in Aug 2022 alleging sale of precise geolocation data traceable to sensitive sites such as reproductive-health clinics and places of worship; the case settled via a stipulated court order entered 26 Jun 2026 banning sale of sensitive location data without affirmative consumer consent for 10 years.", evidence:"reported"},
     {name:"X-Mode / Outlogic", note:"FTC order (2024) banned sale of sensitive location data after finding it supplied data derived from its SDK network without adequate consent controls.", evidence:"reported"},
     {name:"InMarket", note:"FTC order (2024) required deletion of location data and barred sale of sensitive-location data collected via its SDK network.", evidence:"reported"},
-    {name:"Gravy Analytics / Venntel", note:"FTC order (2024) targeted sale of location data, including to government agencies via Venntel, tied to sensitive sites without consent.", evidence:"reported"},
-    {name:"Mobilewalla", note:"FTC order (2024) found collection and sale of precise location and other data without adequate consent.", evidence:"reported"},
+    {name:"Gravy Analytics / Venntel", note:"FTC order proposed Dec 2024 and finalized 14 Jan 2025 targeted sale of location data, including to government agencies via Venntel, tied to sensitive sites without consent.", evidence:"reported"},
+    {name:"Mobilewalla", note:"FTC order proposed Dec 2024 and finalized Jan 2025 found collection and sale of precise location and other data without adequate consent.", evidence:"reported"},
   ],
   fieldguide: ["s_mobile", "k_adtech"],
 });
@@ -244,13 +244,13 @@ M({
     "Carriers have terminated aggregator relationships after public reporting of unauthorized onward resale.",
   ],
   legal: [
-    "FCC enforcement actions have fined major carriers over sale of real-time subscriber location data to aggregators who resold it onward without verifying consent at each hop.",
+    "FCC enforcement actions have fined major carriers over sale of real-time subscriber location data to aggregators who resold it onward without verifying consent at each hop; the Supreme Court upheld the FCC's authority to levy these forfeitures without a jury trial in FCC v. AT&T (4 Jun 2026), after a circuit split in which the 5th Circuit had briefly vacated AT&T's fine.",
     "CPNI (customer proprietary network information) rules restrict use of call-pattern data.",
     "GDPR and ePrivacy rules govern EU operators' use of location and traffic data.",
   ],
   rules: ["g_ftc", "g_usprivacy", "g_intercept"],
   vendors: [
-    {name:"Verizon / AT&T / T-Mobile", note:"FCC enforcement (2024) fined major US carriers over sale of real-time subscriber location data to aggregators that resold it onward, including to bounty hunters, without verifying consent at each hop.", evidence:"reported"},
+    {name:"Verizon / AT&T / T-Mobile / Sprint", note:"In Apr 2024 the FCC fined AT&T ($57M), Verizon ($47M), T-Mobile ($80M) and Sprint (about $12M), nearly $200M combined, over sale of real-time subscriber location data to aggregators that resold it onward, including to bounty hunters, without verifying consent at each hop. The 5th Circuit briefly vacated AT&T's fine on Seventh Amendment grounds (2025), but the Supreme Court reversed and upheld the FCC's forfeiture authority in FCC v. AT&T, decided 4 Jun 2026; the DC Circuit had already upheld the T-Mobile/Sprint fines in Aug 2025.", evidence:"reported"},
     {name:"Verizon Precision Market Insights", note:"Verizon's own product line for aggregated, de-identified subscriber-location analytics sold to retailers and transportation planners, illustrating the consented/aggregated model.", evidence:"public"},
   ],
 });
@@ -299,7 +299,7 @@ M({
   ],
   rules: ["g_ftc", "g_usprivacy", "g_gdpr"],
   vendors: [
-    {name:"General Motors / OnStar Smart Driver", note:"Reported in 2024 to have shared driving-behaviour data with data brokers including LexisNexis Risk Solutions, where it fed insurance pricing. GM ended the programme, and the FTC proposed an order against GM in January 2025.", evidence:"reported"},
+    {name:"General Motors / OnStar Smart Driver", note:"Reported in 2024 to have shared driving-behaviour data with data brokers including LexisNexis Risk Solutions and Verisk, where it fed insurance pricing. GM ended the programme and those broker relationships in 2024; the FTC proposed an order in January 2025 and finalized a 20-year order on 14 Jan 2026 that bars GM from disclosing geolocation and driver-behaviour data to consumer reporting agencies for five years and requires affirmative consumer consent plus data access, deletion and opt-out rights.", evidence:"reported"},
     {name:"Otonomo", note:"Operated a connected-vehicle data marketplace aggregating consented telematics data from multiple automakers for insurers and analytics buyers.", evidence:"public"},
   ],
 });

@@ -155,7 +155,7 @@ M({
   vendors: [
     {name:"crt.sh (Sectigo)", note:"Free hosted search interface over aggregated CT log entries.", evidence:"public"},
     {name:"Censys", note:"Ingests CT logs as a certificate-discovery source feeding its certificate search dataset.", evidence:"public"},
-    {name:"Microsoft Defender Threat Intelligence (RiskIQ heritage)", note:"Combines CT monitoring with passive DNS for infrastructure-mapping products.", evidence:"inferred"},
+    {name:"Microsoft (RiskIQ heritage)", note:"Combined CT monitoring with passive DNS in Defender Threat Intelligence, which was retired as a standalone product in August 2026 and folded into Microsoft Defender XDR and Sentinel.", evidence:"inferred"},
   ],
   fieldguide: ["k_ct", "p_crtsh", "p_censys"],
 });
@@ -208,7 +208,7 @@ M({
   vendors: [
     {name:"DomainTools (Farsight Security / DNSDB)", note:"Acquired Farsight Security in 2021; operates the dominant commercial passive-DNS sensor network and SIE data-sharing exchange.", evidence:"public"},
     {name:"SecurityTrails", note:"Maintains its own historical DNS dataset sold via API, independent of the Farsight network.", evidence:"public"},
-    {name:"Microsoft Defender Threat Intelligence", note:"Inherited RiskIQ's passive-DNS dataset and sensor relationships.", evidence:"reported"},
+    {name:"Microsoft (RiskIQ heritage)", note:"Inherited RiskIQ's passive-DNS dataset and sensor relationships; now delivered through threat intelligence in Microsoft Defender XDR and Sentinel after the standalone Defender TI product was retired in August 2026.", evidence:"reported"},
   ],
   fieldguide: ["k_pdns", "p_domaintools", "p_strails", "p_msti"],
 });
@@ -225,7 +225,7 @@ M({
     "Once approved, pull daily zone files (typically AXFR-style text or ICANN-standard CZDS download) per TLD on a scheduled job; `.com`/`.net` zones from Verisign are among the largest and update daily.",
     "For ccTLDs outside CZDS (e.g. many country codes), negotiate access directly with the national registry, which may require incorporation in-country, a research agreement, or payment; coverage is uneven and some ccTLD registries refuse bulk access entirely.",
     "Diff each day's zone file against the prior day's to produce ‘newly registered,’ ‘dropped/expired’ and ‘unchanged’ domain lists — this new-registration feed is a distinct, high-value product (phishing/typosquat detection runs almost exclusively off it).",
-    "For registrant detail beyond the zone file (which only lists delegated nameservers, not ownership), poll RDAP endpoints per domain — RDAP replaced the legacy WHOIS protocol as ICANN's mandated gTLD lookup protocol in January 2025, returning structured JSON instead of free-text WHOIS.",
+    "For registrant detail beyond the zone file (which only lists delegated nameservers, not ownership), poll RDAP endpoints per domain — RDAP replaced the legacy WHOIS protocol as ICANN's mandated gTLD lookup protocol on 28 January 2025, returning structured JSON instead of free-text WHOIS.",
     "Respect RDAP/WHOIS rate limits per registrar/registry; stagger polling across a worker pool and cache responses since most registrant records change infrequently.",
     "Account for GDPR-driven redaction: post-2018, most gTLD RDAP/WHOIS responses have registrant personal fields redacted by default, so plan to rely on registrar/organization name, creation/expiry dates and nameservers as the primary joinable fields rather than personal registrant identity.",
     "Join zone + RDAP output against passive DNS (net_pdns) and CT (net_ct) feeds to attribute a domain to the infrastructure it actually serves, since zone files alone only show delegation, not content.",
@@ -429,7 +429,7 @@ M({
   origins: ["o_infra"],
   ratings: {cost:2, scale:2, freshness:3, moat:3, legal:1},
   steps: [
-    "Obtain announcement rights to a sizeable, routed, unused IP block — academic network telescopes (notably UCSD's/CAIDA's, historically a /8) rely on holding and routing address space that no legitimate host will ever contact.",
+    "Obtain announcement rights to a sizeable, routed, unused IP block — academic network telescopes (notably UCSD's/CAIDA's, historically a /8, now a /9 and /10) rely on holding and routing address space that no legitimate host will ever contact.",
     "Announce the block via BGP from your own ASN so traffic destined for it actually reaches your capture infrastructure rather than being dropped upstream.",
     "Deploy passive packet capture (no active responses by default) at the telescope's ingress — every packet arriving is inherently unsolicited, since no real service exists at any address in the block.",
     "Capture full packet headers (and optionally payloads, storage permitting) at line rate using high-performance capture tooling (e.g. `tcpdump`/`dpdk`-based capture, or CAIDA's purpose-built telescope collection stack) given that a /8 telescope can see large sustained traffic volumes.",

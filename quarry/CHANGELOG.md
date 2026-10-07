@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.1.3 — 2026-10-07
+
+First full fact-check: all 33 quarry claims in `upkeep/claims.json` verified against sources.
+
+- **Enforcement:**
+  - FTC v. Kochava settled with a 10-year ban (court order, 26 Jun 2026).
+  - Gravy Analytics/Venntel and Mobilewalla orders were finalized in January 2025.
+  - The GM/OnStar 20-year order was finalized on 14 Jan 2026.
+  - FCC carrier location-data fines now carry amounts, plus the Supreme Court's FCC v. AT&T ruling (4 Jun 2026) upholding them.
+- **AI and copyright:**
+  - The Third Circuit affirmed Thomson Reuters v. Ross (29 Sep 2026).
+  - The Bartz v. Anthropic settlement received final approval (20 Jul 2026).
+  - Getty v. Stability AI UK judgment (4 Nov 2025).
+  - LAION's re-screening partners corrected to IWF and C3P (not NCMEC); Re-LAION-5B date added.
+  - OpenAI–DeepSeek described as an unresolved allegation, not litigation.
+- **Privacy:**
+  - Clearview AI UK appeal history (Upper Tribunal, October 2025; Court of Appeal permission, December 2025).
+  - Timeline of Meta's EU AI-training pause (June 2024) and resumption (May 2025).
+  - California DROP is live (consumers since 1 Jan 2026; broker processing since 1 Aug 2026).
+- **Infrastructure and records:**
+  - The CAIDA telescope is now a /9 plus a /10, not a /8.
+  - Exact RDAP date.
+  - PACER fee increase effective 1 Jan 2027.
+- **Vendors:**
+  - Hiya's contact-book collection is now documented (evidence `public`).
+  - Mapillary was acquired by Facebook (renamed Meta in 2021).
+  - Maxar is now Vantor.
+  - Microsoft Defender TI is retired.
+  - Recorded Future deal closed December 2024.
+  - Bright Data's litigation outcome is stated consistently: summary judgment against Meta; the X case partly revived and settled.
+
 ## 0.1.2 — 2026-10-07
 
 - Page head: description and social-preview tags, favicon, and a build stamp in the header.

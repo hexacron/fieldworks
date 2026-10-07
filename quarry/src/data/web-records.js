@@ -140,7 +140,7 @@ M({
   ],
   rules: ["g_cfaa", "g_contract", "g_gdpr", "g_copyright"],
   vendors: [
-    {name: "Bright Data", note: "Scraper APIs and pre-collected datasets; won 2024 US rulings against Meta and X over scraping logged-out public pages.", evidence: "reported"},
+    {name: "Bright Data", note: "Scraper APIs and pre-collected datasets; won summary judgment against Meta over scraping logged-out public pages (Jan 2024), while X's suit was largely dismissed (May 2024), partly revived on amendment (Nov 2024) and settled in 2025.", evidence: "reported"},
     {name: "Zyte", note: "Maintains Scrapy and sells a managed extraction API with ban-management.", evidence: "public"},
     {name: "Apify", note: "Marketplace of pre-built scrapers ('Actors') for social, maps and e-commerce targets.", evidence: "public"},
     {name: "Oxylabs", note: "Scraper APIs and proxy infrastructure for e-commerce and SERP targets.", evidence: "public"},
@@ -189,7 +189,7 @@ M({
   rules: ["g_cfaa", "g_contract", "g_gdpr"],
   vendors: [
     {name: "hiQ Labs", note: "Harvested LinkedIn profile data via automated means; the resulting litigation (hiQ v. LinkedIn) is a key CFAA precedent for public-data access.", evidence: "reported"},
-    {name: "Bright Data", note: "Sued by Meta and X over scraping that included calling platform-internal endpoints for logged-out public data; courts largely sided with Bright Data in 2024.", evidence: "reported"},
+    {name: "Bright Data", note: "Sued by Meta and X over scraping that included calling platform-internal endpoints for logged-out public data; won summary judgment against Meta (Jan 2024), while X's suit was largely dismissed (May 2024), partly revived on amendment (Nov 2024) and settled in 2025.", evidence: "reported"},
     {name: "PhantomBuster", note: "Automation tool that drives platform-internal calls (e.g. LinkedIn) to extract profile and engagement data.", evidence: "inferred"},
   ],
   fieldguide: ["s_apis"],
@@ -590,7 +590,7 @@ M({
   ],
   tools: ["PACER / CM/ECF", "RECAP (Free Law Project) / CourtListener", "State court e-filing portal scrapers", "OCR for PDF-only dockets", "Commercial court-data aggregators (LexisNexis CourtLink, UniCourt)", "Case-metadata normalization schemas"],
   economics: [
-    "PACER charges $0.10 per page with a per-document cap, waived below a minimum quarterly usage threshold; costs scale with document volume across many cases (estimate, per published PACER fee schedule).",
+    "PACER charges $0.10 per page with a per-document cap, waived below a minimum quarterly usage threshold; costs scale with document volume across many cases (estimate, per published PACER fee schedule). A temporary increase to $0.12 per page (with the quarterly waiver threshold rising from $30 to $40) takes effect 1 Jan 2027 for a five-year period, the first PACER fee change since 2012.",
     "State court access costs vary enormously by jurisdiction, from free public terminals to paid e-filing-vendor retrieval fees per document.",
     "Monetized as legal-research platforms (litigation analytics, background-check inputs) or as compliance/risk-screening feeds layering derived signals (litigation history, judgment amounts) on top of raw dockets.",
     "The RECAP/CourtListener model demonstrates a cooperative moat-erosion mechanism: as more users donate purchased PACER documents, per-document marginal cost for the whole community falls over time.",

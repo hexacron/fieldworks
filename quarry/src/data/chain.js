@@ -491,7 +491,7 @@ A({
   stages:["p_enrich","p_label","p_er","p_history"],
   products:["d_platform","d_feed","d_reports","d_cti"],
   vendors:[
-    {name:"Recorded Future", note:"Combines large-scale web/technical crawling with analyst teams; acquired by Mastercard in a deal announced 2024.", evidence:"reported"},
+    {name:"Recorded Future", note:"Combines large-scale web/technical crawling with analyst teams; acquired by Mastercard, deal announced Sept 2024 and closed Dec 2024.", evidence:"reported"},
     {name:"Google Threat Intelligence", note:"Combines Mandiant incident-response/analyst intelligence with VirusTotal data following Google's 2022 Mandiant acquisition.", evidence:"public"}
   ],
   build:[
@@ -956,7 +956,7 @@ A({
   products:["d_api","d_bulk","d_platform"],
   vendors:[
     {name:"Planet", note:"Operates the Dove and SkySat constellations providing daily global imaging at varying resolutions.", evidence:"public"},
-    {name:"Maxar", note:"Operates the WorldView series of high-resolution electro-optical satellites.", evidence:"public"},
+    {name:"Vantor (formerly Maxar)", note:"Operates the WorldView series of high-resolution electro-optical satellites; Maxar Intelligence rebranded as Vantor in October 2025.", evidence:"public"},
     {name:"Airbus", note:"Operates the Pleiades and SPOT satellite constellations for high- and medium-resolution imagery.", evidence:"public"}
   ],
   build:[
@@ -995,11 +995,11 @@ A({
   stages:["p_ingest","p_er","p_compliance"],
   products:["d_api","d_bulk","d_marketplace"],
   vendors:[
-    {name:"Kochava", note:"The FTC brought and litigated an enforcement action alleging sale of precise geolocation data without adequate consent/anonymization safeguards.", evidence:"reported"},
+    {name:"Kochava", note:"The FTC brought and litigated an enforcement action alleging sale of precise geolocation data without adequate consent/anonymization safeguards; the case settled via a stipulated federal-court order entered 26 Jun 2026 banning sale of sensitive location data without consumer consent for 10 years.", evidence:"reported"},
     {name:"X-Mode / Outlogic", note:"A 2024 FTC settlement prohibited sale of sensitive precise location data without consumer consent and required deletion of improperly collected data.", evidence:"reported"},
     {name:"InMarket", note:"A 2024 FTC settlement restricted use of location data for certain sensitive-location categories without consent.", evidence:"reported"},
-    {name:"Gravy Analytics / Venntel", note:"A 2024 FTC settlement addressed sale of sensitive location data; the companies also disclosed a data breach exposing location records.", evidence:"reported"},
-    {name:"Mobilewalla", note:"An FTC settlement addressed allegedly unauthorized collection and sale of consumer location and demographic data.", evidence:"reported"}
+    {name:"Gravy Analytics / Venntel", note:"An FTC order proposed Dec 2024 and finalized 14 Jan 2025 addressed sale of sensitive location data; the companies also disclosed a data breach exposing location records.", evidence:"reported"},
+    {name:"Mobilewalla", note:"An FTC order proposed Dec 2024 and finalized Jan 2025 addressed allegedly unauthorized collection and sale of consumer location and demographic data.", evidence:"reported"}
   ],
   build:[
     "Integrate a location SDK into consenting app publishers' mobile apps, with a clear in-app disclosure and an explicit opt-in consent prompt presented before any location collection begins, as required by current platform policy and FTC guidance.",
@@ -1116,7 +1116,7 @@ A({
   stages:["p_ingest","p_qa"],
   products:["d_api","d_integration","d_marketplace"],
   vendors:[
-    {name:"Bright Data", note:"Operates a large residential and datacenter proxy network plus managed scraping products and pre-collected datasets. Won 2024 rulings in suits brought by Meta and X over scraping logged-out public data.", evidence:"reported"},
+    {name:"Bright Data", note:"Operates a large residential and datacenter proxy network plus managed scraping products and pre-collected datasets. Won summary judgment against Meta over scraping logged-out public data (Jan 2024); X's suit was largely dismissed (May 2024), partly revived on amendment (Nov 2024) and settled in 2025.", evidence:"reported"},
     {name:"Oxylabs", note:"Operates residential and datacenter proxy infrastructure plus managed scraping APIs.", evidence:"public"},
     {name:"Zyte", note:"Managed web-scraping platform, formerly Scrapinghub, and maintainer of the Scrapy framework.", evidence:"public"},
     {name:"Apify", note:"Scraping-automation platform offering a marketplace of pre-built scraping actors.", evidence:"public"}
@@ -1331,7 +1331,7 @@ A({
   vendors:[
     {name:"Reddit", note:"Entered a data-licensing agreement reported to be with Google, covering access to Reddit content for AI training/products.", evidence:"reported"},
     {name:"Shutterstock", note:"Has entered content-licensing deals with multiple AI companies for image/training-data use.", evidence:"reported"},
-    {name:"Getty Images", note:"Has entered AI-training licensing deals while separately litigating, Getty Images v. Stability AI, over unlicensed use of its image library.", evidence:"reported"},
+    {name:"Getty Images", note:"Has entered AI-training licensing deals while separately litigating Getty Images v. Stability AI over unlicensed use of its image library; in the UK case (EWHC, 4 Nov 2025) Getty abandoned its training-infringement claim for lack of UK jurisdiction and won only limited trademark infringement, and a parallel US case continues in the Northern District of California.", evidence:"reported"},
     {name:"News publishers", note:"Several major publishers, e.g. Axel Springer, have entered licensing deals with AI companies; others, e.g. The New York Times, are separately litigating over unlicensed use.", evidence:"reported"}
   ],
   build:[

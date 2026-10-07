@@ -66,7 +66,7 @@ Content lives in each project's data files. Each project's `docs/data-model.md` 
 
 ## Status
 
-Content compiled in October 2026 from general domain knowledge and now maintained as described above. Claims still marked `compiled` in the register have not yet been verified against a source. It is not legal advice, and inclusion is not endorsement. Each project's README lists its scope boundaries and caveats.
+Content compiled in October 2026 from general domain knowledge, then fact-checked: every dated claim in the register was verified against sources on 2026-10-07 and is re-checked every 90 days. It is not legal advice, and inclusion is not endorsement. Each project's README lists its scope boundaries and caveats.
 
 ## License
 

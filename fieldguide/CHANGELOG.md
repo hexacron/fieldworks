@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.2 — 2026-10-07
+
+First full fact-check: all 26 fieldguide claims in `upkeep/claims.json` verified against sources.
+
+- `p_maxar`: renamed **Vantor**. Maxar Intelligence rebranded in October 2025 after Advent International's 2023 take-private and split.
+- `p_msti`: renamed **Threat intelligence in Microsoft Defender**. The standalone Defender Threat Intelligence portal was retired on 1 Aug 2026 and folded into Defender XDR and Sentinel.
+- `p_brightdata`, `docs/collection-engineering.md`: X v. Bright Data was largely dismissed in May 2024, partly revived on amendment and settled in 2025, so Bright Data did not simply "win" against X.
+- `r_whois`: exact WHOIS sunset date (28 January 2025).
+
 ## 0.2.1 — 2026-10-07
 
 - `t_telethon`: notes that Telethon's GitHub repository was archived in 2026 (found by the first upkeep link check).

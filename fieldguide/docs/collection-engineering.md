@@ -75,7 +75,7 @@ These are reference points, not legal advice. Get counsel for anything at rung 5
 | Topic | Reference | App entity |
 |---|---|---|
 | Unauthorized access | CFAA (Van Buren 2021 narrowed "exceeds authorized access"); UK Computer Misuse Act | `g_cfaa` |
-| Scraping public data | hiQ v. LinkedIn; Meta v. Bright Data and X v. Bright Data (2024, logged-out public data) | `g_cfaa`, `p_brightdata` |
+| Scraping public data | hiQ v. LinkedIn; Meta v. Bright Data (summary judgment for Bright Data, Jan 2024); X v. Bright Data (largely dismissed May 2024, partly revived, settled 2025) | `g_cfaa`, `p_brightdata` |
 | Reverse engineering and circumvention | DMCA §1201 and its security-research exemptions; EU software decompilation limited to interoperability; EULA bans | `g_dmca` |
 | Personal data | GDPR/UK GDPR apply to public personal data; minimization and lawful basis | `g_gdpr` |
 | Crawl etiquette | robots.txt (RFC 9309) is not access control but affects good-faith standing | `g_robots` |

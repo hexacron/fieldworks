@@ -48,7 +48,7 @@ M({
   rules: ["g_remote", "g_radio"],
   vendors: [
     {name:"Planet", note:"Operates the Dove/SuperDove PlanetScope constellation for near-daily global optical coverage.", evidence:"public"},
-    {name:"Maxar", note:"Operates WorldView and the newer Legion very-high-resolution optical satellites.", evidence:"public"},
+    {name:"Vantor (formerly Maxar)", note:"Operates WorldView and the newer Legion very-high-resolution optical satellites; Maxar Intelligence rebranded as Vantor in October 2025.", evidence:"public"},
     {name:"Airbus (OneAtlas)", note:"Operates Pléiades, Pléiades Neo and SPOT optical satellites, sold via a cloud platform.", evidence:"public"},
     {name:"ICEYE", note:"Operates a commercial SAR smallsat constellation imaging through cloud and at night.", evidence:"public"},
     {name:"AWS Ground Station", note:"Sells pay-per-pass ground-station access used by several smallsat operators instead of owned antennas.", evidence:"public"}
@@ -64,7 +64,7 @@ M({
   origins: ["o_physical", "o_commerce"],
   ratings: {cost:2, scale:2, freshness:2, moat:2, legal:2},
   steps: [
-    "Negotiate reseller or API-partner agreements with one or more primary operators (e.g. Planet, Maxar, Airbus) covering both tasking and archive access.",
+    "Negotiate reseller or API-partner agreements with one or more primary operators (e.g. Planet, Vantor, Airbus) covering both tasking and archive access.",
     "Integrate each operator's tasking API and ingest their archive footprint catalog into a unified search index, normalized to a common schema (STAC is the common choice).",
     "Build a broker layer that matches a customer requirement (resolution, revisit, cloud-cover tolerance, budget) to the best-fit sensor and operator automatically.",
     "Apply each operator's license terms (resale scope, derivative-use restrictions, re-export limits) as metadata attached to every scene before it is passed downstream.",
@@ -73,7 +73,7 @@ M({
     "Maintain a cross-operator catalog UI so customers can compare coverage and pricing without contacting each operator directly.",
     "Track SLA compliance per operator (delivery time, cloud-cover accuracy) to route future tasking toward the best performer for a given region."
   ],
-  tools: ["Planet API", "Maxar SecureWatch API", "Airbus OneAtlas API", "STAC catalog", "GDAL", "licensing-term metadata schema", "order-management/billing system"],
+  tools: ["Planet API", "Vantor (formerly Maxar) imagery APIs", "Airbus OneAtlas API", "STAC catalog", "GDAL", "licensing-term metadata schema", "order-management/billing system"],
   economics: [
     "Revenue is the margin between the wholesale operator price and the resale price charged to the end customer.",
     "Tasking commands a priority-pricing premium over archive search, since it competes for limited satellite capacity.",
@@ -101,7 +101,7 @@ M({
   ],
   rules: ["g_remote", "g_provenance", "g_contract"],
   vendors: [
-    {name:"Maxar SecureWatch", note:"Operator-run portal combining Maxar's own archive and tasking with reseller access tiers.", evidence:"public"},
+    {name:"Vantor (formerly Maxar)", note:"Operator-run portal (SecureWatch under the Maxar brand) combining its own archive and tasking with reseller access tiers.", evidence:"public"},
     {name:"EOS Data Analytics", note:"Brokers tasking and archive access across multiple satellite operators for agriculture and forestry customers.", evidence:"public"},
     {name:"Apollo Mapping", note:"Independent broker reselling archive and tasking across several commercial imagery operators.", evidence:"public"},
     {name:"Airbus OneAtlas", note:"Combines Airbus's own Pléiades/SPOT archive with a tasking marketplace for partner resellers.", evidence:"public"}
@@ -352,7 +352,7 @@ M({
   rules: ["g_copyright", "g_provenance"],
   vendors: [
     {name:"OpenStreetMap Foundation", note:"Operates the OSM editing and distribution infrastructure under the Open Database License.", evidence:"public"},
-    {name:"Mapillary", note:"Crowd-sourced street-level imagery platform; acquired by Meta in 2020.", evidence:"public"},
+    {name:"Mapillary", note:"Crowd-sourced street-level imagery platform; acquired by Facebook (renamed Meta in 2021) in 2020.", evidence:"public"},
     {name:"Waze (Google)", note:"Crowd-sourced traffic and road-edit data feeding Google Maps.", evidence:"public"},
     {name:"Google Local Guides", note:"Points-and-perks program incentivizing user contribution of places, reviews and photos.", evidence:"public"}
   ],
@@ -452,7 +452,7 @@ M({
   rules: ["g_gdpr", "g_usprivacy", "g_ftc"],
   vendors: [
     {name:"Truecaller", note:"Builds its caller-ID and spam-identification database primarily from user-contributed contact-book uploads.", evidence:"public"},
-    {name:"Hiya", note:"Offers a similar carrier-partnered caller-ID and spam-blocking product; the extent of contact-book-based collection is not documented in the same depth as Truecaller's.", evidence:"inferred"}
+    {name:"Hiya", note:"Offers a similar carrier-partnered caller-ID and spam-blocking product; its own privacy policy discloses collecting users' contacts (with permission) and matching them against call logs to build its caller-ID and spam database.", evidence:"public"}
   ]
 });
 

@@ -271,7 +271,7 @@ M({
   ],
   pitfalls: [
     "Alt-text is a noisy caption signal; a large share of raw pairs are unrelated, generic, or SEO-stuffed and must be filtered rather than trusted.",
-    "LAION-5B was found in a December 2023 Stanford Internet Observatory study to contain a small number of CSAM-linked image URLs; LAION removed the dataset and re-released a re-screened version after hash-matching and NCMEC/IWF cross-checks — this is the documented outcome, and any re-derivation of such a corpus requires the hash-matching safety step from the start, not after release.",
+    "LAION-5B was found in a December 2023 Stanford Internet Observatory study to contain a small number of CSAM-linked image URLs; LAION removed the dataset and, on 30 Aug 2024, re-released a re-screened version (Re-LAION-5B) after hash-matching against lists from the Internet Watch Foundation and the Canadian Centre for Child Protection — this is the documented outcome, and any re-derivation of such a corpus requires the hash-matching safety step from the start, not after release.",
     "Perceptual-hash dedup can over-merge genuinely distinct images that share compositional similarity (e.g. stock photo series).",
     "Resolution/format filtering biases the corpus toward professionally produced imagery over user-generated content.",
   ],
@@ -280,7 +280,7 @@ M({
     "Hash-list providers (NCMEC, IWF, Thorn) continuously update CSAM hash databases that corpus builders are expected to re-screen against post-release.",
   ],
   legal: [
-    "Image copyright and database-right claims apply per image independent of the alt-text caption; this is the subject of ongoing litigation (e.g. Getty Images v. Stability AI).",
+    "Image copyright and database-right claims apply per image independent of the alt-text caption; in the UK's first major AI-copyright ruling (Getty Images v. Stability AI, EWHC, 4 Nov 2025), Getty's primary training-copyright claim was abandoned for want of UK jurisdiction and the court found only limited trademark infringement, while a parallel US case continues in the Northern District of California.",
     "CSAM possession/distribution law applies with strict liability in most jurisdictions regardless of acquisition intent, making upfront hash-matching a legal necessity, not an optional QA step.",
     "EU AI Act provisions on facial-image scraping for biometric databases separately constrain face-specific multimodal corpora.",
   ],
@@ -460,7 +460,7 @@ M({
     "Automated verification only catches checkable errors (code, math); open-ended generation still needs human or model-based spot review.",
   ],
   defenses: [
-    "API providers rate-limit and monitor for high-volume generation patterns consistent with bulk distillation, and their usage policies contractually bar training a competing model on the outputs — a restriction enforced through terms of service rather than a technical block, and reported as a point of dispute in at least one case between OpenAI and DeepSeek over alleged distillation of OpenAI model outputs.",
+    "API providers rate-limit and monitor for high-volume generation patterns consistent with bulk distillation, and their usage policies contractually bar training a competing model on the outputs — a restriction enforced through terms of service rather than a technical block, and reported as a point of dispute between OpenAI and DeepSeek since Jan 2025 over alleged distillation of OpenAI model outputs — an unresolved allegation rather than a filed lawsuit, which OpenAI reiterated to a US House committee in Feb 2026.",
     "Output watermarking or statistical fingerprinting research aims to let a provider detect whether another model was trained on its outputs, though this is not yet a mature enforcement mechanism.",
   ],
   legal: [
