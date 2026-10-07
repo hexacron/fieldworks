@@ -32,7 +32,7 @@ Ratings are editorial, on a 1–3 scale: cost to operate, achievable scale, fres
 
 ## Sharing as a single file
 
-From the repository root, `python3 tools/bundle.py` builds `dist/quarry.html` and `dist/fieldguide.html`: self-contained single files with all CSS and scripts inlined. In the bundle, quarry's "In fieldguide" links point at `fieldguide.html` in the same folder, so share the two files together (or `quarry.html` alone, minus those links). Rebuild after any edit. See the [repository README](../README.md).
+From the repository root, `python3 tools/build.py` builds `dist/quarry.html` and `dist/fieldguide.html`: self-contained single files with all CSS and scripts inlined (tagged releases attach them automatically). In the bundle, quarry's "In fieldguide" links point at `fieldguide.html` in the same folder, so share the two files together (or `quarry.html` alone, minus those links). See the [repository README](../README.md#build).
 
 ## Views
 

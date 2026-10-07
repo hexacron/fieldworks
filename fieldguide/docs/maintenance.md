@@ -2,7 +2,7 @@
 
 ## Verification after editing
 
-There is no test suite. The catalogue is data and the page is the test. After any edit:
+Run `node tools/validate.mjs` from the repository root. It checks every relation, id prefix, model, stage, URL scheme and notes field, and fails on maintainer notes left in reader-facing text. CI runs the same check on every push and pull request. Then check the page itself:
 
 1. Reload `index.html` with the browser devtools console open.
 2. **Console has no warnings.** `Unresolved relations:` means a relation names an ID that doesn't exist. `Duplicate id` means two rows share an ID: both render, but every relation naming that ID (and deep links to it) resolves to the later row.
@@ -28,35 +28,9 @@ Update the counts in `README.md` ("What's in it") and add a `CHANGELOG.md` entry
 
 ## Time-sensitive claims
 
-These statements in `src/data.js` reflect the landscape as of October 2026 and are the most likely to go stale. Re-check them when refreshing the catalogue.
+Claims most likely to go stale (acquisitions, policy changes, case outcomes, programme names) are tracked in [`upkeep/claims.json`](../../upkeep/claims.json) at the repository root, with their verification status, last-checked date and sources. The weekly upkeep issue lists every claim that has never been verified or is overdue. See [MAINTAINING.md](../../MAINTAINING.md).
 
-| ID | Claim |
-|---|---|
-| `p_rf` | Recorded Future acquired by Mastercard (2024) |
-| `p_flashpoint` | Flashpoint absorbed Echosec |
-| `p_msti` | Microsoft Defender TI built on the RiskIQ acquisition |
-| `p_vt` | VirusTotal is Google-owned |
-| `p_domaintools` | DomainTools offers Farsight DNSDB |
-| `p_orbis`, `p_worldcheck` | Moody's / Bureau van Dijk Orbis; LSEG World-Check |
-| `p_metacl` | Meta Content Library succeeded CrowdTangle, which shut down in August 2024 |
-| `p_xapi`, `r_api` | X API moved to paid tiers in 2023; Reddit API pricing change in 2023 |
-| `p_adsbx` | ADS-B Exchange sold in 2023; adsb.lol and airplanes.live as community alternatives |
-| `p_clearview` | Fined by several European data-protection authorities |
-| `p_maxar` | Brand name; Maxar's corporate structure has been changing |
-| `t_spiderfoot` | 200+ modules |
-| `r_whois` | ICANN replaced WHOIS with RDAP as the required gTLD lookup protocol in January 2025 |
-| `g_aiact` | EU AI Act prohibits untargeted facial-image scraping for facial-recognition databases |
-| `g_dsa` | DSA Art. 40 vetted-researcher data access |
-| `g_ic`, `r_gov` | ODNI/CIA IC OSINT Strategy 2024–2026 and 2024 CAI policy framework |
-| `g_cfaa` | Van Buren, hiQ v. LinkedIn, Meta and X v. Bright Data as the reference cases |
-| `p_brightdata` | Won 2024 rulings against Meta and X over scraping logged-out public data |
-| `p_zyte` | Formerly Scrapinghub; maintains Scrapy |
-| `k_apiexploit` | Irish DPC €265m fine on Meta (2022) over scraped user data |
-| `g_disclosure` | US DOJ 2022 CFAA charging policy on good-faith security research |
-| `g_robots`, `g_owaspapi` | RFC 9309 (2022); BOLA ranked first in OWASP API Security Top 10 2023 |
-| `k_mitm` | Android 7+ apps ignore user-installed CAs unless they opt in |
-| `k_mobilere` | App Store binaries are encrypted until decrypted on a jailbroken device |
-| `r_attest`, `k_apireplay` | Play Integrity and App Attest as the current attestation APIs |
+When you add or change a dated fact in `src/data.js`, add or update its claim in the register in the same pull request.
 
 ## Known gaps
 

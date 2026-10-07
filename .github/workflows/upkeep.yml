@@ -1,0 +1,49 @@
+name: Weekly upkeep
+
+# Every Monday: claims due for verification, link health, and a news digest of items mentioning
+# catalogued vendors/tools or watched topics, posted as one issue labelled "upkeep".
+# Run it by hand from the Actions tab (optionally with a longer news window).
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+    inputs:
+      days:
+        description: News window in days
+        default: "7"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  upkeep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: node tools/validate.mjs --index dist/index.json
+      - name: Build report
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://hexacron.github.io/fieldworks' }}
+        run: python3 tools/upkeep.py report --days "${{ inputs.days || '7' }}" --out report.md
+      - name: Open issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create upkeep --color 0E8A16 --description "Weekly upkeep report" 2>/dev/null || true
+          # Issue bodies are capped at 65,536 characters.
+          if [ "$(wc -c < report.md)" -gt 60000 ]; then
+            head -c 60000 report.md > body.md
+            printf '\n\n_Report truncated; run `python3 tools/upkeep.py report` locally for the full list._\n' >> body.md
+          else
+            cp report.md body.md
+          fi
+          gh issue create --title "Upkeep $(date -u +%G-W%V)" --label upkeep --body-file body.md

@@ -2,7 +2,7 @@
 
 ## Verification after editing
 
-There is no test suite. The data is the product, and the page validates it on load.
+Run `node tools/validate.mjs` from the repository root. It loads the data files in the same order as the page and checks every reference, id prefix, rating, evidence tag, required field and fieldguide link. It also warns about methods no recipe uses (only `ug_purchase` is intentionally unused) and fails on maintainer notes left in reader-facing text. CI runs the same check on every push and pull request. Then check the page itself:
 
 1. Reload `index.html` with the devtools console open.
 2. **No console warnings.**
@@ -30,49 +30,14 @@ Update the counts in `README.md` and add a `CHANGELOG.md` entry when content cha
   - Pirated content appears only as practice plus legal outcome.
 - **Vendor evidence is mandatory.** Use `public` only when the vendor documents the practice, `reported` for press, court or regulator sources, and `inferred` sparingly (say so in the note). Don't attribute a sourcing method to a named vendor without one of these.
 - **Numbers.** Costs are orders of magnitude marked `~` and `(estimate)`. Never invent statistics, prices or case outcomes.
-- **Maintainer notes stay out of content.** Phrases like "verify" or "time-sensitive" belong in the table below, not in user-facing text.
+- **Maintainer notes stay out of content.** Phrases like "verify" or "time-sensitive" belong in the claims register (below), not in user-facing text; the validator rejects them.
 - **Neutral tone.** Legal exposure goes in `legal`, `risks` and the rules, not sprinkled through steps.
 
 ## Time-sensitive claims
 
-Collected from the authors of each data file at creation (October 2026). Re-check these first when refreshing.
+Dated facts (acquisitions, enforcement actions, case outcomes, deal terms, programme names) are tracked in [`upkeep/claims.json`](../../upkeep/claims.json) at the repository root, with verification status, last-checked date and sources. The weekly upkeep issue lists every claim never verified or overdue. See [MAINTAINING.md](../../MAINTAINING.md).
 
-| Where | Claim |
-|---|---|
-| `web_officialapi`, `a_social` | X API 2023 pricing overhaul; Reddit 2023 paid API; CrowdTangle shutdown 2024; Dataminr's X data partnership status |
-| `web_scrape`, `web_hiddenapi`, `g_cfaa`, `g_contract`, `a_scrapeinfra` | Meta v. Bright Data (Jan 2024) and X Corp v. Bright Data (May 2024) outcomes; hiQ v. LinkedIn procedural history |
-| `rec_courts` | PACER $0.10/page fee and quarterly waiver threshold |
-| `rec_customs` | CBP AMS manifest confidentiality mechanism and which vendors redistribute |
-| `rec_bulk` | Current name and format of Companies House bulk products |
-| `net_zones` | RDAP replacing WHOIS as the required gTLD protocol (January 2025); CZDS access terms |
-| `net_pdns`, `a_pdns` | DomainTools' 2021 acquisition of Farsight Security |
-| `net_probe` | JARM origin and maintainer |
-| `net_telescope` | UCSD/CAIDA telescope address-space size |
-| `net_sinkhole`, `net_honeypot` | Named historical botnet takedowns and who led them |
-| `sen_satrx` | Spire's 2021 acquisition of exactEarth |
-| `sen_eo`, `sen_rf`, `g_remote` | NOAA 15 CFR Part 960 licensing reform (2020) and its application to RF systems |
-| `crowd_feeders` | ADS-B Exchange's 2023 sale; adsb.lol and airplanes.live as alternatives |
-| `crowd_mapping` | Meta's 2020 acquisition of Mapillary |
-| `crowd_contacts` | Hiya's contact-book collection (evidence: inferred) |
-| `emb_*`, `g_ftc`, `a_location` | FTC orders: Kochava (litigated), X-Mode/Outlogic, InMarket, Gravy Analytics/Venntel, Mobilewalla (2024); Avast/Jumpshot 2024 order ($16.5m) |
-| `emb_telco` | FCC carrier location-data fines (2024) |
-| `emb_iot` | GM/OnStar Smart Driver sharing with LexisNexis; FTC proposed order January 2025 |
-| `com_mna`, `a_cti` | Mastercard–Recorded Future (closed December 2024); Equifax–Kount (2021); Google Threat Intelligence branding |
-| `g_bulkdata` | PADFA (2024) and DOJ bulk sensitive-data rule effective dates (2025) |
-| `g_usprivacy` | California Delete Act DROP platform rollout |
-| `g_gdpr` | Clearview AI fines (CNIL, Garante, Greece, Netherlands); UK ICO appeal; Meta EU AI-training opt-out |
-| `g_copyright`, `ai_books`, `a_llm` | Bartz v. Anthropic ruling and $1.5B settlement (2025); Kadrey v. Meta ruling (June 2025); Thomson Reuters v. Ross (Feb 2025); NYT v. OpenAI (pending) |
-| `g_aiact`, `ai_rights` | GPAI obligations and application dates; training-content summary template; AI-preference opt-out standards |
-| `g_robots`, `ai_crawl` | Cloudflare pay-per-crawl (2025); AI crawler user-agent tokens and IP-range publication |
-| `ai_license`, `a_ailicense` | Reddit–Google, News Corp, Axel Springer, AP and Shutterstock licensing deals; Getty v. Stability AI |
-| `ai_multimodal` | LAION-5B CSAM finding (December 2023) and re-release |
-| `ai_synthetic` | OpenAI–DeepSeek distillation dispute |
-| `ai_annotation`, `ai_expert` | Rater and expert pay ranges (estimates) |
-| `a_posttrain` | Meta's 2025 stake in Scale AI |
-| `a_face` | Clearview AI fines and restrictions by jurisdiction |
-| `a_webintel` | BuzzFeed News 2020 report on Sensor Tower-owned VPN and ad-blocking apps |
-| `hum_expert` | Expert-network insider-trading cases (Primary Global Research, Martoma / SAC Capital) |
-| all files | Every `~ … (estimate)` cost figure |
+When you add or change a dated fact in `src/data/`, add or update its claim in the same pull request. Cost figures marked `~ … (estimate)` are reviewed once a year rather than tracked individually.
 
 ## Known gaps
 

@@ -1,0 +1,60 @@
+name: Suggest an entry
+description: A source, provider, technique, tool, method, archetype, rule or trend that should be added.
+title: "New entry: "
+labels: [new-entry]
+body:
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project
+      options:
+        - fieldguide (OSINT ecosystem)
+        - quarry (how data providers acquire data)
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name
+    validations:
+      required: true
+  - type: input
+    id: kind
+    attributes:
+      label: Kind
+      description: "fieldguide: source, provider, technique, tool, discipline, use case, framework/law, community, trend. quarry: acquisition method (and family), provider archetype, rule, pipeline stage, product."
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: One or two neutral sentences on what it is and what it's for.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it belongs
+      description: Would a practitioner plausibly reach for it, or need to know it exists? How is it different from existing entries?
+    validations:
+      required: true
+  - type: textarea
+    id: relations
+    attributes:
+      label: Connections
+      description: Existing entries it relates to (fieldguide), or the methods/archetypes/rules it connects to (quarry).
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Links supporting the facts. For quarry vendor attributions, say whether the vendor documents the practice (public), press/courts/regulators report it (reported), or it is industry-typical (inferred).
+    validations:
+      required: true
+  - type: dropdown
+    id: affiliation
+    attributes:
+      label: Are you affiliated with what you are suggesting?
+      options: ["No", "Yes (please say how in the description)"]
+    validations:
+      required: true

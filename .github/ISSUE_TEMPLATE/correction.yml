@@ -1,0 +1,51 @@
+name: Correction
+description: Something in fieldguide or quarry is wrong, outdated or unsupported.
+title: "Correction: "
+labels: [correction]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep this accurate. Corrections are accepted on evidence: please link a primary or reputable source (official documentation, court record, regulator release, reputable press).
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project
+      options: [fieldguide, quarry, both]
+    validations:
+      required: true
+  - type: input
+    id: entry
+    attributes:
+      label: Entry
+      description: The entry's name, its id, or the deep link from your address bar (e.g. …/quarry/#view=playbooks&item=net_scan).
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What is wrong?
+      description: Quote the text or describe the relationship, rating, recipe or vendor attribution at issue.
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: What should it say?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Links supporting the correction.
+    validations:
+      required: true
+  - type: dropdown
+    id: affiliation
+    attributes:
+      label: Are you affiliated with an organisation named in this entry?
+      description: Affiliated reports are welcome; disclosure helps reviewers weigh them.
+      options: ["No", "Yes (please say how in the description)"]
+    validations:
+      required: true

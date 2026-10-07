@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>fieldworks · Interactive maps of the OSINT and data-acquisition landscape</title>
+<meta name="description" content="Two free, offline, interactive reference maps: fieldguide (the OSINT ecosystem) and quarry (how data providers acquire data). Open data, CC BY 4.0.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="fieldworks">
+<meta property="og:title" content="fieldworks · Interactive maps of the OSINT and data-acquisition landscape">
+<meta property="og:description" content="fieldguide maps the OSINT ecosystem; quarry maps how data providers acquire data. Free, offline, CC BY 4.0.">
+<meta property="og:url" content="https://hexacron.github.io/fieldworks/">
+<meta property="og:image" content="https://hexacron.github.io/fieldworks/assets/og-fieldworks.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0e16'/%3E%3Cpath d='M16 5L26 13L16 27L6 13Z' fill='%23f5b84a'/%3E%3Ccircle cx='9' cy='23' r='3.5' fill='%235eead4'/%3E%3Ccircle cx='23' cy='23' r='3.5' fill='%2338bdf8'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#0a0e16;--panel:#111827;--line:#243049;--text:#e6ebf5;--muted:#8b97ae;--teal:#5eead4;--amber:#f5b84a}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--teal)}
+main{max-width:1080px;margin:0 auto;padding:56px 24px 40px}
+h1{font-size:40px;margin:0 0 8px;letter-spacing:-.5px}
+h1 span{background:linear-gradient(90deg,var(--teal),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:19px;color:#cfd7e6;max-width:760px;margin:0 0 36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.card img{width:100%;aspect-ratio:1200/630;object-fit:cover;display:block;border-bottom:1px solid var(--line);background:#0d1320}
+.card .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h2{margin:0;font-size:22px;color:var(--c)}
+.card p{margin:0;color:#cfd7e6}
+.card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.btn{display:inline-block;padding:8px 14px;border-radius:8px;border:1px solid var(--line);text-decoration:none;color:var(--text);font-size:14.5px}
+.btn.primary{background:var(--c);color:#0a0e16;border-color:var(--c);font-weight:600}
+.btn:hover{filter:brightness(1.1)}
+section.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:44px}
+section.info div{border-top:1px solid var(--line);padding-top:14px}
+section.info h3{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+section.info p{margin:0;font-size:14.5px;color:#cfd7e6}
+footer{max-width:1080px;margin:0 auto;padding:20px 24px 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<main>
+  <h1><span>fieldworks</span></h1>
+  <p class="lead">Two free, interactive reference maps of the open-source intelligence and data-acquisition landscape: who provides open data, how investigators use it, and how data providers build their datasets in the first place.</p>
+
+  <div class="grid">
+    <article class="card" style="--c:var(--teal)">
+      <img src="assets/og-fieldguide.jpg" alt="Fieldguide ecosystem map: clusters of data sources, providers, techniques and tools">
+      <div class="body">
+        <h2>fieldguide</h2>
+        <p>The OSINT ecosystem: data sources, providers, collection techniques, tools, disciplines, use cases, law, ethics and trends.</p>
+        <ul>
+          <li>300+ entities and 680+ connections</li>
+          <li>Ecosystem map, catalog, intelligence-cycle workflow, source × technique matrix</li>
+          <li>Practitioner notes on scraping, hidden APIs and mobile-app reversing</li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" href="fieldguide/">Open fieldguide</a>
+          <a class="btn" href="downloads/fieldguide.html" download>Download single file</a>
+        </div>
+      </div>
+    </article>
+    <article class="card" style="--c:var(--amber)">
+      <img src="assets/og-quarry.jpg" alt="Quarry supply-chain view: origins flowing through acquisition methods to provider archetypes and products">
+      <div class="body">
+        <h2>quarry</h2>
+        <p>How data providers acquire data: from where data originates, through acquisition methods and processing, to the products sold.</p>
+        <ul>
+          <li>70 acquisition methods, each an operating playbook with economics and legal exposure</li>
+          <li>26 provider recipes with build-from-zero playbooks and named, evidence-tagged vendors</li>
+          <li>Supply chain, recipes, pipeline, economics and law views, including AI training data</li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" href="quarry/">Open quarry</a>
+          <a class="btn" href="downloads/quarry.html" download>Download single file</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <section class="info">
+    <div><h3>A living document</h3><p>Updated continuously: weekly news and link checks, quarterly re-verification of time-sensitive claims, and monthly releases. This build: <span data-build>dev</span>.</p></div>
+    <div><h3>Found an error?</h3><p><a href="https://github.com/hexacron/fieldworks/issues/new?template=correction.yml">Report a correction</a> with a source, or <a href="https://github.com/hexacron/fieldworks/issues/new?template=new-entry.yml">suggest an entry</a>. Every change is reviewed against the evidence standard.</p></div>
+    <div><h3>Open data</h3><p>Content <a href="LICENSE-CONTENT">CC BY 4.0</a>, code <a href="LICENSE">MIT</a>. Works offline; downloads are single self-contained HTML files. <a href="https://github.com/hexacron/fieldworks">Source on GitHub</a>.</p></div>
+  </section>
+</main>
+<footer>
+  Compiled from general domain knowledge and public sources. Not legal advice; inclusion is not endorsement. Vendor attributions carry an evidence level (public, reported or inferred).
+</footer>
+</body>
+</html>

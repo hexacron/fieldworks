@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2 — 2026-10-07
+
+- Page head: description and social-preview tags, favicon, and a build stamp in the header.
+- Single-file build moved to the repository-level `tools/build.py` (replaces `tools/bundle.py`).
+
 ## 0.1.1 — 2026-10-07
 
 - Single-file HTML bundles: the repository-level `tools/bundle.py` builds `dist/quarry.html` and `dist/fieldguide.html`, with quarry's fieldguide links rewritten to the sibling file.

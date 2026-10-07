@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 — 2026-10-07
+
+- `t_telethon`: notes that Telethon's GitHub repository was archived in 2026 (found by the first upkeep link check).
+- `p_edgar`: URL updated to `https://www.sec.gov/search-filings` (the old `/edgar` path now redirects to filing submission).
+- Page head: description and social-preview tags, favicon, and a build stamp in the header.
+
 ## 0.2.0 — 2026-10-07
 
 Collection engineering: scraping, reverse engineering and API collection beyond web crawling.

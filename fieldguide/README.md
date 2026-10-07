@@ -14,7 +14,7 @@ python3 -m http.server 8000     # then visit http://localhost:8000
 
 ## Sharing as a single file
 
-From the repository root, `python3 tools/bundle.py` builds a self-contained `dist/fieldguide.html` with all CSS and scripts inlined. Rebuild after any edit. See the [repository README](../README.md).
+From the repository root, `python3 tools/build.py` builds a self-contained `dist/fieldguide.html` with all CSS and scripts inlined; tagged releases attach it automatically. See the [repository README](../README.md#build).
 
 ## What's in it
 

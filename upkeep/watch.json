@@ -1,0 +1,37 @@
+{
+  "about": "Feeds scanned weekly by tools/upkeep.py watch. An item is reported when its title or summary mentions a catalogued vendor/tool name (from the validator's index) or one of the topic keywords. Set \"ua\": \"browser\" for feeds that reject non-browser user agents. See MAINTAINING.md.",
+  "feeds": [
+    {"name": "FTC consumer-protection press releases", "url": "https://www.ftc.gov/feeds/press-release-consumer-protection.xml", "ua": "browser", "group": "Regulators & courts"},
+    {"name": "EDPB news", "url": "https://www.edpb.europa.eu/feed/news_en", "group": "Regulators & courts"},
+    {"name": "noyb", "url": "https://noyb.eu/en/rss", "group": "Regulators & courts"},
+    {"name": "EFF updates", "url": "https://www.eff.org/rss/updates.xml", "group": "Regulators & courts"},
+    {"name": "CourtListener: data broker", "url": "https://www.courtlistener.com/feed/search/?q=%22data+broker%22", "group": "Regulators & courts", "all": true},
+    {"name": "CourtListener: web scraping", "url": "https://www.courtlistener.com/feed/search/?q=%22web+scraping%22", "group": "Regulators & courts", "all": true},
+    {"name": "CourtListener: AI training copyright", "url": "https://www.courtlistener.com/feed/search/?q=%22training+data%22+AND+copyright", "group": "Regulators & courts", "all": true},
+    {"name": "The Record", "url": "https://therecord.media/feed", "group": "Security & threat intel"},
+    {"name": "BleepingComputer", "url": "https://www.bleepingcomputer.com/feed/", "group": "Security & threat intel"},
+    {"name": "Krebs on Security", "url": "https://krebsonsecurity.com/feed/", "group": "Security & threat intel"},
+    {"name": "Dark Reading", "url": "https://www.darkreading.com/rss.xml", "group": "Security & threat intel"},
+    {"name": "Bellingcat", "url": "https://www.bellingcat.com/feed/", "group": "OSINT community", "all": true},
+    {"name": "Week in OSINT", "url": "https://medium.com/feed/week-in-osint", "group": "OSINT community", "all": true},
+    {"name": "DFRLab", "url": "https://dfrlab.org/feed/", "group": "OSINT community"},
+    {"name": "404 Media", "url": "https://www.404media.co/rss/", "group": "Privacy & tech"},
+    {"name": "TechCrunch privacy", "url": "https://techcrunch.com/category/privacy/feed/", "group": "Privacy & tech"},
+    {"name": "Cloudflare blog", "url": "https://blog.cloudflare.com/rss/", "group": "Privacy & tech"}
+  ],
+  "keywords": [
+    "OSINT", "open-source intelligence", "data broker", "data brokers", "location data", "geolocation data",
+    "scraping", "scraper", "web crawler", "AI crawler", "robots.txt", "training data", "fair use",
+    "infostealer", "stealer log", "credential leak", "combolist", "ransomware leak site",
+    "facial recognition", "face search", "people search", "background check",
+    "passive DNS", "WHOIS", "RDAP", "certificate transparency", "internet scanning",
+    "AIS data", "ADS-B", "satellite imagery", "SAR imagery", "GNSS jamming", "GPS spoofing", "AIS spoofing",
+    "bidstream", "location SDK", "clickstream", "data licensing", "licensing deal",
+    "sanctions", "beneficial ownership", "company registry", "customs data",
+    "Digital Services Act", "AI Act", "GDPR", "CCPA", "Delete Act", "FCRA", "CFAA"
+  ],
+  "ignore_names": [
+    "Planet", "Janes", "Flare", "Arkham", "Hunter.io", "Google", "Meta", "Microsoft", "Apple",
+    "Amazon", "X API", "Reddit", "Telegram", "OpenAI", "Anthropic", "Cloudflare", "Analyst research & curation"
+  ]
+}
