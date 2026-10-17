@@ -1,12 +1,13 @@
 # Maintaining fieldworks as a living document
 
-fieldworks stays accurate only if it is touched on a schedule. Automation finds the work; a human decides what changes. The routine below takes about 30 minutes a week plus a short monthly release.
+fieldworks stays accurate only if it is touched on a schedule. Automation finds the work and an AI agent drafts the fixes; a human checks and decides what merges. The routine below takes about 30 minutes a week plus a short monthly release.
 
 ```mermaid
 flowchart LR
-  W[Monday: upkeep issue opens] --> T[Triage: claims · links · news]
+  W[Monday: upkeep issue opens] --> A[Agent drafts PR + triage comment]
+  A --> T[Triage: claims · links · news]
   P[Public: corrections & suggestions] --> T
-  T --> E[Edit data + claims register in a PR]
+  T --> E[Review / finish edits in the PR]
   E --> C[CI: validate + build]
   C --> M[Merge to main → site redeploys]
   M --> R[Monthly: tag a release → single files published]
@@ -16,7 +17,7 @@ flowchart LR
 
 | When | What | Time |
 |---|---|---|
-| **Weekly** (Monday issue) | Work through the upkeep issue: verify due claims, fix links, triage news. Triage new correction / new-entry issues. | ~30 min |
+| **Weekly** (Monday issue) | Review the agent's draft PR and finish what it left for a human: verify due claims, fix links, triage news. Triage new correction / new-entry issues. | ~30 min |
 | **Monthly** | Cut a release (below), even if small. A visible release history is what makes this credible as a living document. | ~10 min |
 | **Quarterly** | Claims verified ≥ 90 days ago come back in the weekly issue automatically; clear them. Review the feed list in `upkeep/watch.json`. | spread over weekly sessions |
 | **Yearly** | Review every `~ … (estimate)` cost figure in quarry; review known gaps in both projects' `docs/maintenance.md` and decide on new layers or archetypes; refresh the social-preview images. | half a day |
@@ -31,6 +32,23 @@ python3 tools/upkeep.py report --days 7      # or: claims | links | watch
 ```
 
 The issue has three sections. Tick items as you go; one PR can resolve many items. Close the issue when done.
+
+### Agent draft
+
+Right after the issue opens, the **Upkeep draft** workflow (`.github/workflows/upkeep-draft.yml`) has Claude work through it:
+1. It verifies claims, fixes links and triages news under the rules on this page and in CONTRIBUTING.md.
+2. It opens a **draft PR** from `upkeep/issue-N` with the edits, with the sources in the description.
+3. It comments on the issue with its decision for each item, including the ones it left under **Needs a human**.
+
+CI is dispatched on the branch. The PR is a starting point, not a verdict: open every cited source before merging, then finish the remaining items by hand. Content changes are logged under `## Unreleased` in the changelogs; rename that heading when you cut the release.
+
+Safety: the agent's job has a read-only token and returns only a patch. The publish job rejects any change outside the content files (data files except `quarry/src/data/core.js`, `upkeep/*.json`, changelogs, READMEs, project `docs/`), validates and builds before opening the PR.
+
+Re-run it for any issue from Actions → **Upkeep draft** → Run workflow (issue number). A re-run force-pushes the branch, replacing earlier commits on it.
+
+Setup (one-time):
+- add the repository secret `ANTHROPIC_API_KEY` (Settings → Secrets and variables → Actions); without it the draft is skipped with a notice;
+- enable Settings → Actions → General → **Allow GitHub Actions to create and approve pull requests**.
 
 ### Claims to verify
 
@@ -80,7 +98,7 @@ Tuning the watch:
 Versioning is calendar-based: `vYYYY.MM.N` (e.g. `v2026.10.0`; `N` counts releases within the month).
 
 1. Make sure `main` is green (CI).
-2. Update `CHANGELOG.md` at the root (and the project changelogs for content changes) under the new version.
+2. Update `CHANGELOG.md` at the root (and the project changelogs for content changes) under the new version: rename any `## Unreleased` heading to the version and date.
 3. Tag and push:
    ```sh
    git tag v2026.11.0 && git push origin v2026.11.0

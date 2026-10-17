@@ -2,6 +2,11 @@
 
 Repository-level changes: site, tooling and maintenance. Content changes are logged per project in [`fieldguide/CHANGELOG.md`](fieldguide/CHANGELOG.md) and [`quarry/CHANGELOG.md`](quarry/CHANGELOG.md). Releases use calendar versions, `vYYYY.MM.N`.
 
+## Unreleased
+
+- **Upkeep draft:** after each weekly upkeep issue, an AI agent (Claude, via `anthropics/claude-code-action`) works through it and opens a draft PR with sourced catalogue edits, plus an issue comment listing what it left for a human. The agent runs with a read-only token; a separate job restricts its changes to content files, validates and builds before opening the PR. Needs the `ANTHROPIC_API_KEY` secret. Re-runnable for any issue from the Actions tab.
+- CI can be dispatched by hand (used for the agent's branches).
+
 ## v2026.10.1 — 2026-10-07
 
 First public release.

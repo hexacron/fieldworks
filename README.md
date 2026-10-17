@@ -39,6 +39,7 @@ The catalogues are maintained on a schedule rather than written once:
   - claims due for verification;
   - broken links and archived tool repositories;
   - a news digest of regulator, court, security-press and OSINT-community items that mention catalogued vendors or tools.
+- **Agent drafts.** An AI agent works through each upkeep issue and opens a draft PR with sourced edits; a maintainer reviews every change before it merges.
 - **Public corrections** through issue forms with an evidence standard.
 - **Monthly releases** with a changelog.
 
@@ -55,7 +56,7 @@ The routine is in [MAINTAINING.md](MAINTAINING.md); how to report or contribute 
 | `tools/build.py` | Single-file bundles and website build (Python 3.9+ standard library) |
 | `tools/upkeep.py` | Weekly checks: claims due, link health, news watch |
 | `upkeep/` | Claims register, news-watch feeds and keywords, acknowledged link findings |
-| `.github/` | CI, Pages deploy, release and weekly-upkeep workflows; issue forms; PR template |
+| `.github/` | CI, Pages deploy, release, weekly-upkeep and upkeep-draft workflows; issue forms; PR template |
 | `dist/`, `_site/` | Build output (git-ignored) |
 
 The two project directories must stay siblings: quarry's source links to `../fieldguide/index.html`.

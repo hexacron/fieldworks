@@ -2,6 +2,7 @@ name: Weekly upkeep
 
 # Every Monday: claims due for verification, link health, and a news digest of items mentioning
 # catalogued vendors/tools or watched topics, posted as one issue labelled "upkeep".
+# The Upkeep draft workflow then has an AI agent draft a PR for the issue (needs ANTHROPIC_API_KEY).
 # Run it by hand from the Actions tab (optionally with a longer news window).
 
 on:
@@ -20,6 +21,8 @@ permissions:
 jobs:
   upkeep:
     runs-on: ubuntu-latest
+    outputs:
+      issue: ${{ steps.issue.outputs.number }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -35,6 +38,7 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL || 'https://hexacron.github.io/fieldworks' }}
         run: python3 tools/upkeep.py report --days "${{ inputs.days || '7' }}" --out report.md
       - name: Open issue
+        id: issue
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -46,4 +50,18 @@ jobs:
           else
             cp report.md body.md
           fi
-          gh issue create --title "Upkeep $(date -u +%G-W%V)" --label upkeep --body-file body.md
+          url=$(gh issue create --title "Upkeep $(date -u +%G-W%V)" --label upkeep --body-file body.md)
+          echo "$url"
+          echo "number=${url##*/}" >> "$GITHUB_OUTPUT"
+
+  draft:
+    needs: upkeep
+    uses: ./.github/workflows/upkeep-draft.yml
+    with:
+      issue: ${{ fromJSON(needs.upkeep.outputs.issue) }}
+    secrets: inherit
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      actions: write

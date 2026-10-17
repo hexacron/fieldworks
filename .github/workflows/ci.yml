@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:  # the Upkeep draft workflow dispatches CI on its branches
 
 permissions:
   contents: read
