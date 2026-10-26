@@ -6,6 +6,7 @@ Repository-level changes: site, tooling and maintenance. Content changes are log
 
 - **Upkeep draft:** after each weekly upkeep issue, an AI agent (Claude, via `anthropics/claude-code-action`) works through it and opens a draft PR with sourced catalogue edits, plus an issue comment listing what it left for a human. The agent runs with a read-only token; a separate job restricts its changes to content files, validates and builds before opening the PR. Needs the `ANTHROPIC_API_KEY` secret. Re-runnable for any issue from the Actions tab.
 - CI can be dispatched by hand (used for the agent's branches).
+- `upkeep/links.json`: TGStat acknowledged (Cloudflare challenge returns HTTP 403 to automated checks; verified up in a browser).
 
 ## v2026.10.1 — 2026-10-07
 
