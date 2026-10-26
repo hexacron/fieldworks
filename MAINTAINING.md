@@ -84,7 +84,7 @@ For each item, decide one of:
 Tuning the watch:
 - Too noisy: add generic names to `ignore_names`, or remove broad keywords.
 - Too quiet: add feeds or keywords.
-- `"all": true` on a feed reports every item (use it only for low-volume, high-relevance feeds), and `"ua": "browser"` is for feeds that reject bots (FTC).
+- `"all": true` on a feed reports every item (use it only for low-volume, high-relevance feeds), and `"ua": "browser"` is for feeds that reject non-browser user agents. It does not help against CDNs that fingerprint the client (ftc.gov blocks every scripted request, which is why FTC actions come from the Federal Register feed: consent-order notices name the respondent in the title).
 - Feeds that fail are listed at the end of the section.
 
 ## Public contributions

@@ -1,7 +1,7 @@
 {
-  "about": "Feeds scanned weekly by tools/upkeep.py watch. An item is reported when its title or summary mentions a catalogued vendor/tool name (from the validator's index) or one of the topic keywords. Set \"ua\": \"browser\" for feeds that reject non-browser user agents. See MAINTAINING.md.",
+  "about": "Feeds scanned weekly by tools/upkeep.py watch. An item is reported when its title or summary mentions a catalogued vendor/tool name (from the validator's index) or one of the topic keywords. Set \"ua\": \"browser\" for feeds that reject non-browser user agents (it does not get past CDNs that fingerprint the client, e.g. ftc.gov). See MAINTAINING.md.",
   "feeds": [
-    {"name": "FTC consumer-protection press releases", "url": "https://www.ftc.gov/feeds/press-release-consumer-protection.xml", "ua": "browser", "group": "Regulators & courts"},
+    {"name": "Federal Register: FTC", "url": "https://www.federalregister.gov/api/v1/documents.rss?conditions%5Bagencies%5D%5B%5D=federal-trade-commission&order=newest", "group": "Regulators & courts"},
     {"name": "EDPB news", "url": "https://www.edpb.europa.eu/feed/news_en", "group": "Regulators & courts"},
     {"name": "noyb", "url": "https://noyb.eu/en/rss", "group": "Regulators & courts"},
     {"name": "EFF updates", "url": "https://www.eff.org/rss/updates.xml", "group": "Regulators & courts"},
