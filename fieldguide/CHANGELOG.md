@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- `p_copernicus`: notes that the EU releases Sentinel imagery over some conflict areas with a 24-hour delay on security grounds (Gaza, parts of the West Bank and the Eastern Mediterranean since March 2026, as reported by Bellingcat).
+
 ## 0.2.2 — 2026-10-07
 
 First full fact-check: all 26 fieldguide claims in `upkeep/claims.json` verified against sources.
