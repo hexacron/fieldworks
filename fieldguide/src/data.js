@@ -135,7 +135,7 @@ provider: [
  ["p_maxar","Geospatial & tracking","Vantor","Very-high-resolution optical satellite imagery and 3D products widely used in conflict reporting; rebranded from Maxar (Maxar Intelligence) to Vantor in Oct 2025 after Advent International's 2023 take-private and split.","s_imagery",m(C)],
  ["p_airbus","Geospatial & tracking","Airbus OneAtlas","Pléiades, Pléiades Neo and SPOT imagery via a cloud platform.","s_imagery",m(C)],
  ["p_sar","Geospatial & tracking","ICEYE / Capella Space","Commercial SAR constellations that image through cloud and at night.","s_imagery",m(C)],
- ["p_copernicus","Geospatial & tracking","Copernicus (EU/ESA)","Free Sentinel-1 radar, Sentinel-2 optical and other open Earth-observation data.","s_imagery s_sensor",m(P,"https://dataspace.copernicus.eu")],
+ ["p_copernicus","Geospatial & tracking","Copernicus (EU/ESA)","Free Sentinel-1 radar, Sentinel-2 optical and other open Earth-observation data. On EU security grounds, imagery over some conflict areas is released with a 24-hour delay (e.g. Gaza, parts of the West Bank and the Eastern Mediterranean since March 2026).","s_imagery s_sensor",m(P,"https://dataspace.copernicus.eu")],
  ["p_nasa","Geospatial & tracking","NASA Earthdata (Landsat, FIRMS)","Free Landsat archives, VIIRS night lights and FIRMS active-fire detections.","s_imagery s_sensor",m(P,"https://earthdata.nasa.gov")],
  ["p_gearth","Geospatial & tracking","Google Earth & Maps","Global basemaps, historical imagery, 3D terrain and Street View.","s_maps s_imagery",m(FR,"https://earth.google.com")],
  ["p_osm","Geospatial & tracking","OpenStreetMap","Crowd-sourced open map of the world, queryable via Overpass.","s_maps",m(FR,"https://www.openstreetmap.org")],
