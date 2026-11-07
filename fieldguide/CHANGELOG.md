@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0 — 2026-11-07
+
+3D graph visualization and advanced exploration capabilities:
+
+- **3D perspective orbit:** full 3D interactive camera with pitch and yaw orbit rotation, smooth damping, perspective projection with depth cueing, depth-sorting, and auto-rotation (`Space`).
+- **3D layouts:** switchable geometries with animated interpolation:
+  - Ecosystem Ring (elevating backbone hubs in 3D topography);
+  - 3D Strata Stack (layered architectural tiers along the Z-axis);
+  - 3D Constellation (spherical cluster distribution around data sources).
+- **Interactive 3D orientation gizmo:** live 3-axis compass canvas widget with click-to-snap camera presets (Top, Front, Side, Isometric).
+- **Shortest path tracer:** BFS path finding between any two entities across the network with step-by-step breadcrumbs, glowing animated edges, and HUD controls (`P`).
+- **Neighborhood scope filtering:** isolate 1-hop direct links or 2-hop extended neighborhood for selected entities.
+- **Hub & degree threshold:** filter by minimum connections (All, ≥3, ≥6, ≥10).
+- **Visual encodings:** dynamic re-coloring by Layer, Access Model, or Intelligence Workflow Stage.
+- **Snapshot export:** download high-resolution SVG vector or PNG raster snapshots.
+- Zero dependencies preserved; runs completely offline from `file://`.
+
 ## 0.2.2 — 2026-10-07
 
 First full fact-check: all 26 fieldguide claims in `upkeep/claims.json` verified against sources.

@@ -54,33 +54,44 @@ Any filter change calls `applyFilters()`, which updates all four views and the h
 
 ## Map
 
-### Layout
+### Layouts
 
-Computed once at load by `layout()`. The simulation is deterministic, so the map looks the same on every load. It took about 74 ms for 259 nodes in headless Chromium on an Apple-silicon Mac.
+Three 3D layout geometries are computed at boot and can be switched dynamically with smooth cubic easing:
 
-- **Anchors.** `source` is anchored at the origin. The other layers are anchored around an ellipse starting at 12 o'clock in `LAYERS` order. Each gets an arc proportional to `max(28, layerSize)` (small layers get a floor so they don't collide). Radius is `520 + √size·14`, with x stretched ×1.25 to suit landscape screens.
-- **Start.** Each node starts at its anchor ±80 px, jittered by a seeded Park–Miller generator (seed 42).
-- **Simulation (450 iterations), per iteration:**
-  - pairwise repulsion `3200/d²` within 400 px, ×1.6 between different layers to separate clusters;
-  - link springs with rest length 160 and stiffness 0.0007 (kept weak so clusters aren't dragged into each other);
-  - anchor gravity 0.022;
-  - velocity damping 0.55, with a velocity cap of `30·alpha + 2` that cools linearly.
-- **Cost.** Repulsion is O(n²) per iteration. At several times the current node count, replace it with a Barnes–Hut quadtree or precompute positions [inference: not measured].
+1. **Ecosystem Ring (`ring`):** 2D clustered force layout with sources at the origin and the 8 surrounding layer clusters on an ellipse. In 3D space, major hubs elevate vertically based on connectivity ($z = (\sqrt{\text{degree}} - 2) \cdot 28$), forming an organic 3D topography.
+2. **3D Strata Stack (`strata`):** Organizes the ecosystem into discrete horizontal architectural tiers along the $Z$-axis, reflecting the intelligence supply chain:
+   - $Z = -360$: Data Sources
+   - $Z = -200$: Collection Techniques
+   - $Z = -40$: Tools & Platforms
+   - $Z = +120$: Data Providers
+   - $Z = +280$: Disciplines & Use Cases
+   - $Z = +440$: Governance, Community & Trends
+   Cross-layer relationships appear as vertical bridging lines across tiers.
+3. **3D Constellation (`sphere`):** Spherical distribution where Data Sources form an inner nucleus and the other 8 layers are anchored across the outer spherical hull ($R = 480$), creating an orbital galaxy.
 
-To retune, change the constants in `layout()` and check the result visually. The main failure mode is adjacent clusters overlapping; raise anchor gravity or the cross-layer repulsion factor to fix it.
+### 3D Projection & Camera
 
-Dragging a node moves only that node and its edges. Nothing re-simulates, and moved positions are not persisted.
+- **Coordinates & Camera:** Nodes carry 3D coordinates $(x, y, z)$. Camera state maintains horizontal azimuth (`yaw`), elevation tilt (`pitch`), pan offset $(x, y)$, zoom scale $k$, and field of view ($fov = 950$, $dist = 1200$).
+- **Perspective Projection:**
+  $$x_1 = x \cos(\text{yaw}) + z \sin(\text{yaw}), \quad z_1 = -x \sin(\text{yaw}) + z \cos(\text{yaw})$$
+  $$y_2 = y \cos(\text{pitch}) - z_1 \sin(\text{pitch}), \quad z_2 = y \sin(\text{pitch}) + z_1 \cos(\text{pitch})$$
+  In 3D mode, the perspective factor is $p = \frac{fov}{\max(120, dist - z_2)}$. In 2D flat mode, $\text{yaw} = 0, \text{pitch} = 0, p = 1$, strictly matching standard 2D layout.
+- **Depth Cueing & Sorting:** Nearer nodes are rendered with larger radii and full opacity; background nodes are gently attenuated. In 3D mode, nodes are depth-sorted by $z_2$ in DOM order so foreground elements properly occlude background elements.
+- **3D Orientation Gizmo:** A 3D coordinate compass widget (`<canvas id="gizmo">`) renders live X (red), Y (green), and Z (blue) axes matching camera angles. Clicking snaps to Top (2D), Isometric 3D, Front, or Side.
 
-### Rendering and interaction
+### Graph Capabilities
 
-- SVG layers: cluster labels → edges → nodes, all inside one `<g>` transformed by `T = {x, y, k}`.
-- **Labels.** Node labels use font size `12/k` and cluster labels `15/k`, so text stays the same size on screen at any zoom. Strokes use `vector-effect: non-scaling-stroke`.
-- **When labels show.** By default only the 4 best-connected nodes per layer are labelled (`.hub`). All labels appear when `k > 2.2 × fitK` (`#graph.zoomed`), and also on hover/selection neighbours and search matches.
-- **Fit.** `fitK` is computed the first time the map is shown and again on window resize while the map is active. Zoom is clamped to `[0.4, 12] × fitK`.
-- **Focus mode.** Hovering a node (or having one selected) adds `#graph.focus` and marks the node, its neighbours and its edges `.hl`; everything else fades. Leaving a node restores focus to the selection.
-- **Pointer.** Movement under 4 px counts as a click: on a node it selects, on the background it deselects. Larger movement drags the node, or pans when started on the background.
-- **Centring.** `centerOn(n)` zooms to at least `2.4 × fitK` and offsets left by 180 px when a selection is open, so the node isn't hidden under the detail panel.
+- **Shortest Path Tracer:** Breadth-first search (BFS) finds the shortest route between two selected nodes across the network graph. Path nodes and edges are emphasized with glowing pulse animation; intermediate hops are displayed in an interactive HUD.
+- **Neighborhood Scope Filter:** When an entity is selected, analysts can toggle visibility between **All**, **2-hop** (extended neighborhood), and **1-hop** (direct links only).
+- **Degree/Hub Filtering:** Filters nodes by minimum link threshold (All, ≥3, ≥6, ≥10).
+- **Visual Encodings:** Nodes and legend dynamically re-color by **Layer**, **Access Model** (Commercial, Freemium, Free, OSS, Public), or **Workflow Stage** (Plan, Collect, Process, Analyze, Disseminate, OPSEC).
+- **Snapshot Export:** Exports current view as standalone SVG vector or high-resolution PNG image with radial backdrop.
 
+### Pointer & Interaction
+
+- **3D Mode:** Left-drag on canvas orbits pitch and yaw; Shift+drag or right-drag pans; scroll wheel zooms. Left-drag on a node moves it across the 3D camera tangent plane.
+- **2D Mode:** Left-drag pans; Alt+drag or right-drag transitions to 3D orbit.
+- **Clicking:** Under 4 px movement selects a node (or sets start/end in path tracer); background click clears selection.
 ## URL state
 
 - `select()` and `setView()` call `writeHash()`, which uses `history.replaceState` to write `#view=<view>[&node=<id>]`. Browser history is not filled with entries.
@@ -92,7 +103,11 @@ Dragging a node moves only that node and its edges. Nothing re-simulates, and mo
 |---|---|
 | `/` | Focus search. |
 | Enter (in search) | Select the first visible match; on the map, also centre it. |
-| Esc | Leave the search box and clear the selection. |
+| Esc | Leave the search box and clear selection (or cancel path tracer). |
+| `3` or `V` | Toggle 3D perspective orbit / 2D flat view. |
+| Space | Toggle continuous 3D auto-rotation. |
+| `R` | Reset camera angle. |
+| `P` | Toggle shortest-path tracer. |
 
 ## Output safety
 

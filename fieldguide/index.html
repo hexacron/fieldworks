@@ -56,10 +56,69 @@
 <main>
   <section class="view on" id="v-map">
     <svg id="graph"></svg>
+    <div class="map-toolbar" id="map-toolbar">
+      <div class="ctl-group">
+        <label for="ctl-layout">Layout</label>
+        <select id="ctl-layout" title="Graph layout">
+          <option value="ring">Ecosystem Ring</option>
+          <option value="strata">3D Strata Stack</option>
+          <option value="sphere">3D Constellation</option>
+        </select>
+      </div>
+      <div class="ctl-group">
+        <label for="ctl-color">Color</label>
+        <select id="ctl-color" title="Color encoding">
+          <option value="layer">Layer</option>
+          <option value="model">Access model</option>
+          <option value="stage">Workflow stage</option>
+        </select>
+      </div>
+      <div class="ctl-group">
+        <label for="ctl-degree">Links</label>
+        <select id="ctl-degree" title="Filter by minimum connections">
+          <option value="0">All</option>
+          <option value="3">≥ 3</option>
+          <option value="6">≥ 6</option>
+          <option value="10">≥ 10</option>
+        </select>
+      </div>
+      <div class="ctl-group" id="ctl-scope-wrap" style="display:none">
+        <label>Neighborhood</label>
+        <div class="seg-btn" id="ctl-scope">
+          <button data-scope="all" class="on" title="Show all nodes">All</button>
+          <button data-scope="2" title="Selected node + 2 hops">2-hop</button>
+          <button data-scope="1" title="Selected node + direct connections">1-hop</button>
+        </div>
+      </div>
+      <button class="tbar-btn" id="btn-trace" title="Trace shortest path between entities (P)">⤹ Trace Path</button>
+      <div class="tbar-dropdown">
+        <button class="tbar-btn" id="btn-export" title="Export graph snapshot">⤓ Export</button>
+        <div class="tbar-menu" id="export-menu">
+          <button id="exp-svg">SVG vector</button>
+          <button id="exp-png">PNG image</button>
+        </div>
+      </div>
+    </div>
     <div class="mapctl">
+      <button id="tog3d" class="btn-3d" title="Toggle 3D perspective orbit (3 / V)">3D</button>
+      <button id="autorot" title="Toggle 3D auto-rotation (Space)">▶</button>
       <button id="zin" title="Zoom in">+</button>
       <button id="zout" title="Zoom out">−</button>
-      <button id="zfit" title="Fit">⤢</button>
+      <button id="zfit" title="Fit to view">⤢</button>
+      <button id="zreset" title="Reset camera angle (R)">↺</button>
+    </div>
+    <div class="path-hud" id="path-hud" style="display:none">
+      <div class="path-hud-title">Trace Path</div>
+      <div class="path-hud-endpoints">
+        <button class="path-chip" id="path-start-chip">Select start...</button>
+        <span class="path-arrow">➔</span>
+        <button class="path-chip" id="path-end-chip">Select end...</button>
+      </div>
+      <div class="path-hud-result" id="path-hud-result"></div>
+      <button class="path-close" id="path-close" title="Exit path tracer">✕</button>
+    </div>
+    <div class="gizmo-wrap" id="gizmo-wrap" title="3D orientation gizmo · Click to snap camera">
+      <canvas id="gizmo" width="64" height="64"></canvas>
     </div>
     <div class="legend" id="legend"></div>
   </section>

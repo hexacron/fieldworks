@@ -38,7 +38,7 @@ The 13 collection-engineering techniques carry **practitioner notes**: workflow,
 
 | View | What it shows |
 |---|---|
-| **Ecosystem map** | Network graph with sources at the centre and the other layers grouped around them. Node size is the number of connections. Hover to trace, click for details, drag a node to move it, drag the background to pan, scroll to zoom. |
+| **Ecosystem map** | Interactive 2D/3D network graph. Supports true 3D orbital rotation (pitch/yaw drag, auto-spin), interactive orientation gizmo, multiple layouts (Ecosystem Ring, 3D Strata Stack, 3D Constellation), shortest-path BFS tracing between entities, 1-hop/2-hop neighborhood isolation, degree/hub threshold filtering, color encodings (by layer, access model, or workflow stage), and vector/raster export (SVG/PNG). |
 | **Catalog** | Cards grouped by layer and category, with access-model badges and a per-layer count of each entity's connections. |
 | **Workflow** | Techniques, tools and frameworks placed on the five intelligence-cycle stages, plus a separate row for OPSEC, legal and ethics. |
 | **Source × technique** | Grid of which techniques work on which sources, with a bar for how many providers serve each source. |
@@ -50,6 +50,16 @@ Shared controls:
 - **Layer toggles:** each has an **only** button that isolates a single layer.
 - **Access-model filter:** commercial, freemium, free, open source, public sector.
 - **Deep links:** the URL tracks the current view and selection, e.g. `index.html#view=catalog&node=t_maltego`.
+- **Graph capabilities:**
+  - **3D perspective orbit:** toggle between 2D flat view and 3D perspective (`3` or `V`); drag to orbit, Shift+drag (or right-click drag) to pan, scroll to zoom.
+  - **3D auto-rotation:** hands-free orbital spin (`Space`) for exploratory inspection or presentations.
+  - **Layout modes:** Ecosystem Ring (elevating major hubs), 3D Strata Stack (architectural planes by tier), and 3D Constellation (spherical cluster distribution).
+  - **Shortest path tracer:** click **Trace Path** (`P`) or **Trace path** in any entity's drawer to find and highlight the shortest connection route between two nodes across the graph.
+  - **Neighborhood scope:** isolate direct (1-hop) or secondary (2-hop) connections for the selected entity to eliminate clutter.
+  - **Color dimensions:** switch visual encoding between Layer, Access Model, or Workflow Stage.
+  - **Hub filtering:** isolate structural hubs by minimum connection threshold (≥3, ≥6, ≥10).
+  - **Orientation gizmo & reset:** clickable 3D coordinate widget to snap to Top, Front, Side, or Isometric view (`R` to reset).
+  - **Snapshot export:** download high-resolution SVG vector or PNG image snapshots.
 
 ## What lives where
 
