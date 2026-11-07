@@ -38,7 +38,7 @@ const state = {
   models: new Set(Object.keys(MODELS)),
   q: "",
   sel: null,
-  layout: "ring",
+  layout: "constellation",
   colorMode: "layer",
   minLinks: 0,
   scope: "all",
@@ -125,12 +125,14 @@ $("#reset").addEventListener("click", () => {
 const NS = "http://www.w3.org/2000/svg";
 const svg = $("#graph");
 const cam = {
-  is3D: false,
-  yaw: 0.72,
-  pitch: 0.50,
-  autoRotate: false,
-  fov: 950,
-  dist: 1200,
+  is3D: true,
+  yaw: 0.65,
+  pitch: 0.35,
+  vyaw: 0,
+  vpitch: 0,
+  autoRotate: true,
+  fov: 1100,
+  dist: 1400,
   x: 0,
   y: 0,
   k: 1,
@@ -147,6 +149,96 @@ function sEl(tag, attrs, parent) {
 }
 
 /* --- Layout Generators --- */
+function computeConstellationLayout() {
+  const clusterAnchors = {
+    source:     { x: 0,    y: 0,    z: 0 },
+    technique:  { x: 380,  y: 60,   z: 240 },
+    tool:       { x: 260,  y: -300, z: 120 },
+    provider:   { x: 420,  y: 280,  z: -220 },
+    discipline: { x: -340, y: -240, z: -140 },
+    usecase:    { x: -380, y: 80,   z: 200 },
+    governance: { x: -300, y: 340,  z: 120 },
+    community:  { x: 0,    y: 380,  z: -260 },
+    trend:      { x: 0,    y: -360, z: -240 }
+  };
+  let seed = 42;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (const n of nodes) {
+    const a = clusterAnchors[n.layer];
+    const rad = n.layer === "source" ? 110 : 140;
+    n.x = a.x + (rnd() - 0.5) * rad;
+    n.y = a.y + (rnd() - 0.5) * rad;
+    n.z = a.z + (rnd() - 0.5) * rad;
+    n.vx = 0; n.vy = 0; n.vz = 0;
+  }
+  const N = nodes.length, iters = 200;
+  for (let it = 0; it < iters; it++) {
+    const alpha = 1 - it / iters;
+    for (let i = 0; i < N; i++) {
+      const a = nodes[i];
+      for (let j = i + 1; j < N; j++) {
+        const b = nodes[j];
+        let dx = a.x - b.x, dy = a.y - b.y, dz = a.z - b.z;
+        let d2 = dx * dx + dy * dy + dz * dz;
+        if (d2 > 250000) continue;
+        if (d2 < 1) { dx = rnd() - 0.5; dy = rnd() - 0.5; dz = rnd() - 0.5; d2 = 1; }
+        const same = a.layer === b.layer ? 1 : 1.8;
+        const f = 4500 * same / d2;
+        const d = Math.sqrt(d2);
+        a.vx += dx / d * f; a.vy += dy / d * f; a.vz += dz / d * f;
+        b.vx -= dx / d * f; b.vy -= dy / d * f; b.vz -= dz / d * f;
+      }
+    }
+    for (const l of links) {
+      const dx = l.t.x - l.s.x, dy = l.t.y - l.s.y, dz = l.t.z - l.s.z;
+      const d = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
+      const f = (d - 130) * 0.0006;
+      l.s.vx += dx / d * f; l.s.vy += dy / d * f; l.s.vz += dz / d * f;
+      l.t.vx -= dx / d * f; l.t.vy -= dy / d * f; l.t.vz -= dz / d * f;
+    }
+    for (const n of nodes) {
+      const a = clusterAnchors[n.layer];
+      n.vx += (a.x - n.x) * 0.024;
+      n.vy += (a.y - n.y) * 0.024;
+      n.vz += (a.z - n.z) * 0.024;
+      n.vx *= 0.58; n.vy *= 0.58; n.vz *= 0.58;
+      const vmax = 25 * alpha + 1.5;
+      const v = Math.hypot(n.vx, n.vy, n.vz);
+      if (v > vmax) { n.vx *= vmax / v; n.vy *= vmax / v; n.vz *= vmax / v; }
+      n.x += n.vx; n.y += n.vy; n.z += n.vz;
+    }
+  }
+  for (const n of nodes) {
+    n.layoutConstellation = { x: n.x, y: n.y, z: n.z };
+  }
+}
+
+function computeStrataLayout() {
+  const tiers = {
+    source: -360,
+    technique: -180,
+    tool: 0,
+    provider: 180,
+    discipline: 360,
+    usecase: 360,
+    governance: 360,
+    community: 360,
+    trend: 360
+  };
+  const byLayer = {};
+  for (const n of nodes) (byLayer[n.layer] = byLayer[n.layer] || []).push(n);
+  for (const [layer, list] of Object.entries(byLayer)) {
+    const z = tiers[layer] || 0;
+    const count = list.length;
+    const rad = Math.max(140, Math.sqrt(count) * 45);
+    list.forEach((n, idx) => {
+      const angle = (idx / count) * Math.PI * 2;
+      const r = rad * (0.65 + 0.35 * ((idx % 3) / 2));
+      n.layoutStrata = { x: Math.cos(angle) * r * 1.25, y: Math.sin(angle) * r, z };
+    });
+  }
+}
+
 function computeRingLayout() {
   const ring = LAYERS.filter(l => l.id !== "source");
   const anchors = {source: {x: 0, y: 0}};
@@ -165,7 +257,7 @@ function computeRingLayout() {
     n.x = a.x + (rnd() - .5) * 160; n.y = a.y + (rnd() - .5) * 160; n.z = 0;
     n.vx = 0; n.vy = 0;
   }
-  const N = nodes.length, iters = 450;
+  const N = nodes.length, iters = 400;
   for (let it = 0; it < iters; it++) {
     const alpha = 1 - it / iters;
     for (let i = 0; i < N; i++) {
@@ -197,87 +289,18 @@ function computeRingLayout() {
     }
   }
   for (const n of nodes) {
-    const hubElev = Math.max(0, (Math.sqrt(n.nb.size) - 2) * 28);
+    const hubElev = Math.max(0, (Math.sqrt(n.nb.size) - 2) * 24);
     n.layoutRing = { x: n.x, y: n.y, z: hubElev };
-  }
-}
-
-function computeStrataLayout() {
-  const tiers = {
-    source: -360,
-    technique: -200,
-    tool: -40,
-    provider: 120,
-    discipline: 280,
-    usecase: 280,
-    governance: 440,
-    community: 440,
-    trend: 440
-  };
-  const byLayer = {};
-  for (const n of nodes) (byLayer[n.layer] = byLayer[n.layer] || []).push(n);
-  for (const [layer, list] of Object.entries(byLayer)) {
-    const z = tiers[layer] || 0;
-    const count = list.length;
-    const rad = Math.max(130, Math.sqrt(count) * 48);
-    list.forEach((n, idx) => {
-      const angle = (idx / count) * Math.PI * 2;
-      const r = rad * (0.65 + 0.35 * ((idx % 3) / 2));
-      n.layoutStrata = { x: Math.cos(angle) * r * 1.2, y: Math.sin(angle) * r, z };
-    });
-  }
-}
-
-function computeSphereLayout() {
-  const sphereAnchors = {
-    source: { x: 0, y: 0, z: 0 },
-    provider: { theta: 0.2, phi: 0.4 },
-    technique: { theta: 1.0, phi: 1.5 },
-    tool: { theta: 2.1, phi: 1.3 },
-    discipline: { theta: 3.2, phi: 1.6 },
-    usecase: { theta: 4.3, phi: 1.4 },
-    governance: { theta: 5.4, phi: 1.8 },
-    community: { theta: 1.6, phi: 2.5 },
-    trend: { theta: 4.8, phi: 2.6 }
-  };
-  const R = 480;
-  const byLayer = {};
-  for (const n of nodes) (byLayer[n.layer] = byLayer[n.layer] || []).push(n);
-  for (const [layer, list] of Object.entries(byLayer)) {
-    if (layer === "source") {
-      list.forEach((n, i) => {
-        const phi = Math.acos(1 - 2 * (i + 0.5) / list.length);
-        const theta = Math.PI * (1 + 5 ** 0.5) * i;
-        const r = 90 + (i % 5) * 15;
-        n.layoutSphere = {
-          x: r * Math.sin(phi) * Math.cos(theta),
-          y: r * Math.sin(phi) * Math.sin(theta),
-          z: r * Math.cos(phi)
-        };
-      });
-    } else {
-      const a = sphereAnchors[layer];
-      const ax = R * Math.sin(a.phi) * Math.cos(a.theta);
-      const ay = R * Math.sin(a.phi) * Math.sin(a.theta);
-      const az = R * Math.cos(a.phi);
-      list.forEach((n, i) => {
-        const u = ((i * 137.5) % 360) * Math.PI / 180;
-        const r = Math.sqrt((i + 1) / list.length) * 110;
-        n.layoutSphere = {
-          x: ax + Math.cos(u) * r,
-          y: ay + Math.sin(u) * r,
-          z: az + Math.sin(u * 2) * 35
-        };
-      });
-    }
   }
 }
 
 function switchLayout(name) {
   state.layout = name;
+  const sel = $("#ctl-layout");
+  if (sel && sel.value !== name) sel.value = name;
   for (const n of nodes) {
     n.sx = n.x; n.sy = n.y; n.sz = n.z;
-    const target = (name === "strata") ? n.layoutStrata : (name === "sphere") ? n.layoutSphere : n.layoutRing;
+    const target = (name === "strata") ? n.layoutStrata : (name === "ring") ? n.layoutRing : n.layoutConstellation;
     n.tx = target.x; n.ty = target.y; n.tz = target.z;
   }
   layoutAnim = { step: 0, maxSteps: 35 };
@@ -303,11 +326,11 @@ function stepLayoutAnim() {
 
 /* --- Graph SVG Construction --- */
 function buildMap() {
-  computeRingLayout();
+  computeConstellationLayout();
   computeStrataLayout();
-  computeSphereLayout();
+  computeRingLayout();
   for (const n of nodes) {
-    n.x = n.layoutRing.x; n.y = n.layoutRing.y; n.z = n.layoutRing.z;
+    n.x = n.layoutConstellation.x; n.y = n.layoutConstellation.y; n.z = n.layoutConstellation.z;
     n.xp = n.x; n.yp = n.y; n.zp = n.z; n.p = 1;
   }
   vp = sEl("g", {}, svg);
@@ -460,14 +483,16 @@ function fit() {
   const vis = nodes.filter(n => visible(n));
   if (!vis.length) return;
   const r = svg.getBoundingClientRect();
-  if (!r.width) return;
+  const width = r.width || (window.innerWidth ? window.innerWidth - 280 : 1000);
+  const height = r.height || (window.innerHeight ? window.innerHeight - 60 : 700);
   const xs = vis.map(n => n.xp), ys = vis.map(n => n.yp);
-  const minX = Math.min(...xs) - 60, maxX = Math.max(...xs) + 140, minY = Math.min(...ys) - 60, maxY = Math.max(...ys) + 40;
-  const k = Math.min(r.width / (maxX - minX), r.height / (maxY - minY));
+  const minX = Math.min(...xs) - 80, maxX = Math.max(...xs) + 120, minY = Math.min(...ys) - 80, maxY = Math.max(...ys) + 80;
+  const k = Math.min(width / (maxX - minX), height / (maxY - minY)) * 0.92;
   cam.k = k; cam.fitK = k;
-  cam.x = (r.width - (maxX - minX) * k) / 2 - minX * k;
-  cam.y = (r.height - (maxY - minY) * k) / 2 - minY * k;
-  applyT(); fitted = true;
+  cam.x = width / 2 - ((minX + maxX) / 2) * k;
+  cam.y = height / 2 - ((minY + maxY) / 2) * k;
+  applyT();
+  if (r.width > 0) fitted = true;
 }
 
 function zoomAt(factor, mx, my) {
@@ -528,18 +553,26 @@ svg.addEventListener("contextmenu", e => e.preventDefault());
 svg.addEventListener("pointerdown", e => {
   const ne = e.target.closest(".node");
   const isPan = e.shiftKey || e.button === 1 || e.button === 2;
+  cam.vyaw = 0;
+  cam.vpitch = 0;
+  if (cam.autoRotate) {
+    cam.autoRotate = false;
+    updateAutoRotUI();
+  }
   drag = {
     x: e.clientX,
     y: e.clientY,
     lastX: e.clientX,
     lastY: e.clientY,
+    vx: 0,
+    vy: 0,
     node: ne ? ne.__n : null,
     moved: false,
     tx: cam.x,
     ty: cam.y,
     isPan: isPan
   };
-  svg.setPointerCapture(e.pointerId);
+  try { svg.setPointerCapture(e.pointerId); } catch(err) {}
   svg.classList.add(cam.is3D && !ne && !isPan ? "orbiting" : "dragging");
 });
 svg.addEventListener("pointermove", e => {
@@ -553,6 +586,8 @@ svg.addEventListener("pointermove", e => {
   const stepX = e.clientX - drag.lastX, stepY = e.clientY - drag.lastY;
   drag.lastX = e.clientX;
   drag.lastY = e.clientY;
+  drag.vx = stepX * 0.007;
+  drag.vy = stepY * 0.007;
 
   if (!drag.moved && Math.abs(dx) + Math.abs(dy) > 4) {
     drag.moved = true;
@@ -586,6 +621,9 @@ svg.addEventListener("pointerup", () => {
     } else {
       select(drag.node ? drag.node.id : null);
     }
+  } else if (drag && drag.moved && !drag.node && !drag.isPan && cam.is3D) {
+    cam.vyaw = drag.vx || 0;
+    cam.vpitch = drag.vy || 0;
   }
   drag = null;
   svg.classList.remove("dragging", "orbiting");
@@ -596,26 +634,39 @@ svg.addEventListener("pointerleave", () => {
 });
 svg.addEventListener("wheel", e => {
   e.preventDefault();
+  if (cam.autoRotate) {
+    cam.autoRotate = false;
+    updateAutoRotUI();
+  }
   const r = svg.getBoundingClientRect();
   zoomAt(Math.exp(-e.deltaY * 0.0015), e.clientX - r.left, e.clientY - r.top);
 }, {passive: false});
 
 /* --- Map Controls & Toolbar --- */
+function updateAutoRotUI() {
+  const btn = $("#autorot");
+  if (!btn) return;
+  btn.classList.toggle("on", cam.autoRotate);
+  btn.textContent = cam.autoRotate ? "❚❚" : "▶";
+  btn.title = cam.autoRotate ? "Pause auto-rotation (Space)" : "Start 3D auto-rotation (Space)";
+}
+
 function set3D(enabled) {
   cam.is3D = enabled;
-  $("#tog3d").classList.toggle("on", enabled);
-  $("#tog3d").textContent = enabled ? "2D" : "3D";
-  $("#tog3d").title = enabled ? "Switch to 2D flat view (3 / V)" : "Switch to 3D perspective orbit (3 / V)";
+  document.querySelectorAll("#ctl-dim button").forEach(b => {
+    b.classList.toggle("on", b.dataset.dim === (enabled ? "3d" : "2d"));
+  });
   if (!enabled) {
     cam.autoRotate = false;
-    $("#autorot").classList.remove("on");
-    $("#autorot").textContent = "▶";
+    cam.vyaw = 0;
+    cam.vpitch = 0;
+    updateAutoRotUI();
     cam.yaw = 0;
     cam.pitch = 0;
   } else {
     if (cam.yaw === 0 && cam.pitch === 0) {
-      cam.yaw = 0.72;
-      cam.pitch = 0.50;
+      cam.yaw = 0.65;
+      cam.pitch = 0.35;
     }
   }
   applyProjection();
@@ -628,17 +679,22 @@ function setupMapControls() {
   $("#zout").onclick = () => { const r = svg.getBoundingClientRect(); zoomAt(1 / 1.4, r.width / 2, r.height / 2); };
   $("#zfit").onclick = fit;
   $("#zreset").onclick = () => {
-    if (cam.is3D) { cam.yaw = 0.72; cam.pitch = 0.50; applyProjection(); }
+    if (cam.is3D) { cam.yaw = 0.65; cam.pitch = 0.35; cam.vyaw = 0; cam.vpitch = 0; applyProjection(); }
     fit();
   };
-  $("#tog3d").onclick = () => set3D(!cam.is3D);
   $("#autorot").onclick = () => {
     if (!cam.is3D) set3D(true);
     cam.autoRotate = !cam.autoRotate;
-    $("#autorot").classList.toggle("on", cam.autoRotate);
-    $("#autorot").textContent = cam.autoRotate ? "❚❚" : "▶";
+    cam.vyaw = 0; cam.vpitch = 0;
+    updateAutoRotUI();
   };
-
+  const ctlDim = $("#ctl-dim");
+  if (ctlDim) {
+    ctlDim.onclick = e => {
+      const b = e.target.closest("button[data-dim]");
+      if (b) set3D(b.dataset.dim === "3d");
+    };
+  }
   const gw = $("#gizmo-wrap");
   if (gw) {
     gw.onclick = e => {
@@ -1159,20 +1215,36 @@ buildMap();
 renderWorkflow();
 applyFilters();
 const h0 = readHash();
-if (h0.dim === "3d") set3D(true);
-if (h0.layout && ["ring", "strata", "sphere"].includes(h0.layout)) {
+if (h0.dim === "2d") set3D(false);
+else set3D(true);
+if (h0.layout && ["constellation", "strata", "ring"].includes(h0.layout)) {
   $("#ctl-layout").value = h0.layout;
   switchLayout(h0.layout);
+} else {
+  $("#ctl-layout").value = "constellation";
 }
 setView(["map", "catalog", "workflow", "matrix"].includes(h0.view) ? h0.view : "map");
+fit();
+window.addEventListener("load", fit);
 if (h0.node && byId[h0.node]) { select(h0.node); if (state.view === "map") centerOn(byId[h0.node]); }
 
-/* --- Continuous Animation Loop (auto-rotate and layout transitions) --- */
+/* --- Continuous Animation Loop (auto-rotate, inertia, layout transitions) --- */
 function loop() {
+  if (!fitted && state.view === "map") {
+    fit();
+  }
   let needsProj = false;
-  if (cam.autoRotate && cam.is3D && !drag) {
-    cam.yaw = (cam.yaw + 0.005) % (Math.PI * 2);
-    needsProj = true;
+  if (!drag) {
+    if (Math.abs(cam.vyaw) > 0.0001 || Math.abs(cam.vpitch) > 0.0001) {
+      cam.yaw = (cam.yaw + cam.vyaw) % (Math.PI * 2);
+      cam.pitch = Math.max(-1.45, Math.min(1.45, cam.pitch + cam.vpitch));
+      cam.vyaw *= 0.90;
+      cam.vpitch *= 0.90;
+      needsProj = true;
+    } else if (cam.autoRotate && cam.is3D) {
+      cam.yaw = (cam.yaw + 0.0025) % (Math.PI * 2);
+      needsProj = true;
+    }
   }
   if (layoutAnim) {
     stepLayoutAnim();

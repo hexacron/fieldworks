@@ -58,11 +58,17 @@
     <svg id="graph"></svg>
     <div class="map-toolbar" id="map-toolbar">
       <div class="ctl-group">
+        <div class="seg-btn" id="ctl-dim">
+          <button data-dim="3d" class="on" title="3D perspective orbit view (3 / V)">3D Orbit</button>
+          <button data-dim="2d" title="2D flat view (3 / V)">2D Flat</button>
+        </div>
+      </div>
+      <div class="ctl-group">
         <label for="ctl-layout">Layout</label>
         <select id="ctl-layout" title="Graph layout">
-          <option value="ring">Ecosystem Ring</option>
+          <option value="constellation" selected>3D Constellation</option>
           <option value="strata">3D Strata Stack</option>
-          <option value="sphere">3D Constellation</option>
+          <option value="ring">Ecosystem Ring</option>
         </select>
       </div>
       <div class="ctl-group">
@@ -100,8 +106,7 @@
       </div>
     </div>
     <div class="mapctl">
-      <button id="tog3d" class="btn-3d" title="Toggle 3D perspective orbit (3 / V)">3D</button>
-      <button id="autorot" title="Toggle 3D auto-rotation (Space)">▶</button>
+      <button id="autorot" class="on" title="Toggle 3D auto-rotation (Space)">❚❚</button>
       <button id="zin" title="Zoom in">+</button>
       <button id="zout" title="Zoom out">−</button>
       <button id="zfit" title="Fit to view">⤢</button>
